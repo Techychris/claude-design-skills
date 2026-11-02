@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gate fixture: seeded defects</title>
+<style>
+:root { --bg: #ffffff; --ink: #1a1a1a; --muted: #999999; --line: rgba(0,0,0,0.12); --accent: #1f5fbf; --raised: #f0f0f0; --ease: cubic-bezier(0.22, 1, 0.36, 1); }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 32px; font: 16px/1.5 system-ui, sans-serif; color: var(--ink); background: var(--bg); font-variant-numeric: tabular-nums; }
+h1, h2, p { margin: 0 0 16px; }
+section { margin-bottom: 32px; }
+button { font: inherit; color: var(--ink); background: var(--raised); border: 1px solid var(--line); border-radius: 8px; min-height: 44px; padding: 0 16px; transition: background-color 150ms var(--ease); }
+button:hover { background: var(--bg); }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.good-btn { }
+/* D1: off-grid padding */
+.btn-offgrid { padding: 0 13px; }
+/* D6: no visible focus */
+.btn-nofocus:focus-visible, .btn-nofocus:focus { outline: none; }
+/* D5: transition all */
+a.bad-link { color: var(--ink); transition: all 300ms ease; display: inline-block; padding: 12px 0; }
+a.bad-link:hover { color: var(--accent); }
+/* D2: low contrast text inside a card */
+.card { padding: 24px; border: 1px solid var(--line); border-radius: 12px; }
+.muted { color: var(--muted); }
+/* select control (no defect) */
+select { font: inherit; color: var(--ink); background: var(--raised); border: 1px solid var(--line); border-radius: 8px; min-height: 44px; padding: 8px 12px; transition: border-color 150ms var(--ease); }
+select:hover { border-color: var(--ink); }
+select:focus-visible { outline: 2px solid var(--accent); }
+label { display: block; margin-bottom: 8px; }
+input { font: inherit; color: var(--ink); background: var(--raised); border: 1px solid var(--line); border-radius: 8px; min-height: 44px; padding: 8px 12px; transition: border-color 150ms var(--ease); }
+input:hover { border-color: var(--ink); }
+input:focus-visible { outline: 2px solid var(--accent); }
+/* D7: spec-conform tabs with roving tabindex */
+[role=tablist] { display: flex; gap: 8px; }
+[role=tab] { min-width: 88px; }
+[role=tab][aria-selected=true] { background: var(--bg); }
+/* D12: radius 18 on a panel (prose allows panels 14–20) */
+.panel { padding: 24px; border-radius: 18px; border: 1px solid var(--line); }
+/* D13: legal-but-slow hover (300ms) on a control */
+.slow { transition: background-color 300ms var(--ease); }
+.slow:hover { background: var(--accent); color: var(--bg); }
+</style>
+</head>
+<body>
+<h1>Gate fixture</h1>
+
+<section>
+  <button class="good-btn" data-component="button" data-name="clean button" onclick="this.dataset.x=Date.now()">Save changes</button>
+</section>
+
+<section class="card" data-component="card" data-name="card holding bad button">
+  <p>Card text that is fine.</p>
+  <button class="btn-offgrid" data-component="button" data-name="D1 off-grid button" onclick="this.dataset.x=Date.now()">Publish</button>
+</section>
+
+<section class="card" data-component="card" data-name="D2 low contrast card">
+  <p class="muted">This caption is too light to read comfortably.</p>
+</section>
+
+<section>
+  <input type="text" placeholder="Search" data-component="input" data-name="D3 placeholder only">
+</section>
+
+<section data-component="block" data-name="D4 inline literal" style="color:#555555">
+  <p>Text colored with an inline literal.</p>
+</section>
+
+<section>
+  <p>Read the <a class="bad-link" href="#x" data-component="link" data-name="D5 transition all">release notes</a></p>
+</section>
+
+<section>
+  <button class="btn-nofocus" data-component="button" data-name="D6 no focus ring" onclick="this.dataset.x=Date.now()">Archive</button>
+</section>
+
+<section>
+  <div role="tablist" aria-label="Views" data-component="tabs" data-name="D7 roving tabs">
+    <button role="tab" aria-selected="true" tabindex="0" id="ta" onclick="sel(this)">Board</button>
+    <button role="tab" aria-selected="false" tabindex="-1" id="tb" onclick="sel(this)">List</button>
+  </div>
+</section>
+
+<section>
+  <label for="sz">Size</label>
+  <select id="sz" data-component="select" data-name="C1 clean select"><option>Small</option><option>Medium</option><option>Large</option></select>
+</section>
+
+<section>
+  <label for="nm">Name</label>
+  <input id="nm" type="text" data-component="input" data-name="C2 clean input">
+</section>
+
+<section>
+  <img data-component="image" data-name="D10 image no size" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Spacer">
+</section>
+
+<section data-component="block" data-name="D11 svg low contrast">
+  <svg viewBox="0 0 200 40" width="200" height="40" role="img" aria-label="Chart"><text x="10" y="24" fill="#eeeeee">Barely visible label</text></svg>
+</section>
+
+<section class="panel" data-component="card" data-name="D12 radius 18 panel">
+  <p>A panel with an 18px radius.</p>
+</section>
+
+<section>
+  <button class="slow" data-component="button" data-name="D13 slow hover" onclick="this.dataset.x=Date.now()">Duplicate</button>
+</section>
+
+<script>
+function sel(t){ document.querySelectorAll('[role=tab]').forEach(function(x){ var on=x===t; x.setAttribute('aria-selected',on); x.tabIndex=on?0:-1; }); }
+document.querySelectorAll('[role=tab]').forEach(function(t,i,all){ t.addEventListener('keydown',function(e){ if(e.key==='ArrowRight'){ var n=all[(i+1)%all.length]; sel(n); n.focus(); } }); });
+</script>
+</body>
+</html>
