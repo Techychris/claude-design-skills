@@ -1,0 +1,15 @@
+{ "theme": "boardroom",
+  "meta": { "title": "Steering Committee — Meeting Minutes", "subtitle": "July 10, 2026 · 10:00–11:00 PT · Recorded", "org": "Meridian Analytics" },
+  "chrome": { "header": true, "footer": true },
+  "blocks": [
+    { "type": "h1", "text": "Steering Committee Minutes" },
+    { "type": "kv", "pairs": [ ["Date", "July 10, 2026"], ["Chair", "A. Reyes"], ["Scribe", "T. Nakamura"], ["Attendees", "A. Reyes, T. Nakamura, J. Okafor, L. Chen, M. Adeyemi (guest)"], ["Absent", "R. Silva (delegated to L. Chen)"] ] },
+    { "type": "rule", "accent": true },
+    { "type": "h2", "text": "Decisions" },
+    { "type": "callout", "variant": "success", "title": "Approved", "text": "Q3 budget reallocation of **$120K** from events to field enablement. Unanimous." },
+    { "type": "h2", "text": "Discussion" },
+    { "type": "bullets", "items": [ "Lighthouse status accepted as presented; SSO risk carried (see project brief).", "Southeast hiring case moved to email vote pending final comp bands.", "M. Adeyemi presented the partner-data proposal; committee requested a privacy review before next session." ] },
+    { "type": "h2", "text": "Action items" },
+    { "type": "table", "headers": ["#", "Action", "Owner", "Due"], "widths": [1, 6, 2, 2], "rows": [ ["1", "Circulate comp bands for Southeast hires and open email vote", "J. Okafor", "Jul 15"], ["2", "Schedule privacy review of partner-data proposal", "L. Chen", "Jul 18"], ["3", "Publish approved budget reallocation to finance tracker", "T. Nakamura", "Jul 12"] ] },
+    { "type": "caption", "text": "Next meeting: August 7, 2026, same time." }
+  ] }

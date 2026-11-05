@@ -1,0 +1,11 @@
+{ "theme": "editorial",
+  "meta": { "title": "Letter", "org": "" },
+  "chrome": { "footer": false },
+  "blocks": [
+    { "type": "letterhead", "senderLines": ["Meridian Analytics", "410 Harbor Street, Suite 900", "Portland, OR 97204"], "recipientLines": ["Dr. Elena Vasquez", "Director of Partnerships", "Northgate Research Institute", "1200 Innovation Way", "Seattle, WA 98109" ] },
+    { "type": "p", "text": "Dear Dr. Vasquez," },
+    { "type": "p", "text": "Thank you for hosting our team last Thursday. The depth of your group's work on longitudinal cohort modeling exceeded what we had understood from the published material, and it clarified where a partnership would be genuinely complementary rather than duplicative." },
+    { "type": "p", "text": "We would like to propose a scoped pilot: a **twelve-week engagement** pairing your cohort models with our regional demand data, with a joint readout to both leadership teams in November. We can have a one-page scope and data-sharing terms to you within the week if the shape of this is agreeable." },
+    { "type": "p", "text": "Either way, we are grateful for the conversation and the candor with which your team engaged our questions." },
+    { "type": "signoff", "closing": "With appreciation,", "name": "James Okafor", "title": "Head of Strategic Partnerships" }
+  ] }

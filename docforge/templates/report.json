@@ -1,0 +1,166 @@
+{
+  "theme": "boardroom",
+  "meta": {
+    "title": "Q2 Market Expansion Review",
+    "subtitle": "Performance, risks, and the case for the Southeast corridor",
+    "org": "Meridian Analytics",
+    "author": "Strategy Office",
+    "version": "1.0",
+    "for": "Executive Committee"
+  },
+  "chrome": {
+    "header": true,
+    "footer": true
+  },
+  "blocks": [
+    {
+      "type": "cover"
+    },
+    {
+      "type": "toc"
+    },
+    {
+      "type": "h1",
+      "text": "Executive Summary"
+    },
+    {
+      "type": "p",
+      "text": "Q2 expansion outpaced plan in two of three target regions. Revenue reached **$4.2M** against a $3.8M target, driven by mid-market conversion. The Southeast corridor remains the highest-leverage opportunity, but staffing and onboarding capacity are now the binding constraints."
+    },
+    {
+      "type": "metrics",
+      "items": [
+        {
+          "value": "$4.2M",
+          "label": "Q2 revenue"
+        },
+        {
+          "value": "+18%",
+          "label": "vs plan"
+        },
+        {
+          "value": "37",
+          "label": "new accounts"
+        },
+        {
+          "value": "92%",
+          "label": "retention"
+        }
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Decision requested",
+      "text": "Approve two additional onboarding hires for the Southeast corridor by **August 1** to protect the Q3 pipeline."
+    },
+    {
+      "type": "h1",
+      "text": "Regional Performance"
+    },
+    {
+      "type": "h2",
+      "text": "Results by region"
+    },
+    {
+      "type": "image",
+      "src": "assets/review-process.png",
+      "widthIn": 5.5,
+      "caption": "Figure 1. How each region's variance was reviewed this quarter."
+    },
+    {
+      "type": "table",
+      "headers": [
+        "Region",
+        "Target",
+        "Actual",
+        "Variance",
+        "Status"
+      ],
+      "widths": [
+        3,
+        2,
+        2,
+        2,
+        2
+      ],
+      "rows": [
+        [
+          "Southeast",
+          "$1.4M",
+          "$1.9M",
+          "+36%",
+          "Ahead"
+        ],
+        [
+          "Midwest",
+          "$1.2M",
+          "$1.3M",
+          "+8%",
+          "Ahead"
+        ],
+        [
+          "Mountain West",
+          "$1.2M",
+          "$1.0M",
+          "-17%",
+          "Behind"
+        ]
+      ]
+    },
+    {
+      "type": "caption",
+      "text": "Table 1. Regional revenue vs. target, Q2 FY26."
+    },
+    {
+      "type": "h2",
+      "text": "What drove the variance"
+    },
+    {
+      "type": "h3",
+      "text": "By region"
+    },
+    {
+      "type": "bullets",
+      "items": [
+        "Southeast: two anchor logos closed a quarter early, pulling forward ~$380K.",
+        "Midwest: steady pipeline conversion; no structural change.",
+        "Mountain West: one enterprise deal slipped to Q3; coverage gap after a field departure."
+      ]
+    },
+    {
+      "type": "h1",
+      "text": "Risks"
+    },
+    {
+      "type": "callout",
+      "variant": "warn",
+      "title": "Capacity risk",
+      "text": "Onboarding queue is at **19 days** against a 10-day standard. Left unaddressed, this degrades the retention number that currently anchors the expansion case."
+    },
+    {
+      "type": "pagebreak"
+    },
+    {
+      "type": "h1",
+      "text": "Recommendation"
+    },
+    {
+      "type": "numbered",
+      "items": [
+        "Approve two Southeast onboarding hires (offer-ready by August 1).",
+        "Rebalance one Mountain West field seat to inside coverage for two quarters.",
+        "Hold Q3 targets flat; revisit after the September pipeline review."
+      ]
+    },
+    {
+      "type": "spacer",
+      "pt": 10
+    },
+    {
+      "type": "quote",
+      "text": "The constraint has moved from demand to delivery. That is a better problem, but only if we act on it.",
+      "by": "VP, Field Operations"
+    }
+  ]
+}

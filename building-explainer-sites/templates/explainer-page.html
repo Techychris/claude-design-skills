@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How Money Doubles</title>
+<!--
+  Explainer starter. Replace the EXAMPLE content (a compound-interest explainer) with your own.
+  Built-in rules: prose-first, works without JS, theme tokens, 16px mobile floor / ~20px desktop,
+  ~65-character measure, reduced-motion support, reset control, aria-live readout, static equivalent.
+-->
+<style>
+:root {
+  --bg: #fbfbfa; --surface: #ffffff; --ink: #1b1f24; --muted: #545b66; --line: #d9dde3;
+  --accent: #1d5fd1; --accent-soft: #e6eefc;
+  --font-body: Georgia, "Times New Roman", serif;
+  --font-ui: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121418; --surface: #1a1d23; --ink: #e8eaee; --muted: #a6adb8; --line: #2e333c;
+    --accent: #8ab4ff; --accent-soft: #1e2a40; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121418; --surface: #1a1d23; --ink: #e8eaee; --muted: #a6adb8; --line: #2e333c;
+  --accent: #8ab4ff; --accent-soft: #1e2a40; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);   /* 16px on phones, up to 20px on desktop */
+  line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+main { max-width: 65ch; margin: 0 auto; padding-block: 3rem 4rem; display: flex; flex-direction: column; gap: 2.5rem; }
+section { display: flex; flex-direction: column; gap: 0.9rem; }
+h1, h2 { font-family: var(--font-ui); line-height: 1.2; text-wrap: balance; margin: 0; }
+h1 { font-size: 2em; }
+h2 { font-size: 1.35em; }
+p { margin: 0; }
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.explorable { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem; font-family: var(--font-ui); font-size: 0.95em; }
+.explorable .prompt { font-weight: 600; }
+.controls { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+.controls input[type=range] { flex: 1 1 12rem; min-height: 24px; accent-color: var(--accent); }
+button { font: inherit; min-height: 32px; padding: 0.3rem 0.9rem; border-radius: 999px; border: 1px solid var(--accent); background: var(--accent-soft); color: var(--accent); cursor: pointer; }
+output { font-variant-numeric: tabular-nums; }
+.chart { width: 100%; height: auto; display: block; }
+.chart rect { fill: var(--accent); }
+.chart rect.base { fill: var(--muted); opacity: 0.35; }
+.chart text { fill: var(--muted); font: 12px var(--font-ui); }
+.chart .bar { transition: height 1s ease, y 1s ease; }   /* data transition ~1 s */
+details { font-family: var(--font-ui); font-size: 0.9em; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 0.35rem 0.5rem; border-bottom: 1px solid var(--line); }
+.js-only { display: none; }
+.js .js-only { display: flex; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Money doubles faster than most people guess</h1>
+  </header>
+
+  <section aria-labelledby="s1">
+    <h2 id="s1">Divide 72 by the interest rate to get the doubling time</h2>
+    <p>At a steady yearly return, money grows by a fixed percentage each year. Because each year's growth is added to the balance, the next year's growth is a little bigger. That is compounding.</p>
+    <p>A handy shortcut, the rule of 72, says the number of years to double is about 72 divided by the rate. At 6%, money doubles in about 12 years; at 9%, about 8.</p>
+
+    <!-- Explorable: enhances the prose above; the table below is its static equivalent. -->
+    <div class="explorable js-only" id="explorable">
+      <p class="prompt" id="q">Guess first: at 8% a year, how many years until $1,000 becomes $2,000? Then move the slider to check.</p>
+      <div class="controls">
+        <label for="rate">Yearly rate</label>
+        <input type="range" id="rate" min="1" max="12" step="1" value="4" aria-describedby="q">
+        <output id="out" for="rate" aria-live="polite">4%: doubles in about 18 years</output>
+        <button type="button" id="reset">Reset</button>
+      </div>
+      <svg class="chart" id="chart" viewBox="0 0 600 180" role="img" aria-labelledby="chart-desc">
+        <desc id="chart-desc">Bars show the balance each year until it doubles at the chosen rate.</desc>
+      </svg>
+    </div>
+
+    <details>
+      <summary>Doubling times as a table</summary>
+      <table>
+        <thead><tr><th scope="col">Yearly rate</th><th scope="col">Rule of 72</th><th scope="col">Exact years</th></tr></thead>
+        <tbody>
+          <tr><td>2%</td><td>36</td><td>35.0</td></tr>
+          <tr><td>4%</td><td>18</td><td>17.7</td></tr>
+          <tr><td>6%</td><td>12</td><td>11.9</td></tr>
+          <tr><td>8%</td><td>9</td><td>9.0</td></tr>
+          <tr><td>10%</td><td>7.2</td><td>7.3</td></tr>
+        </tbody>
+      </table>
+    </details>
+  </section>
+
+  <section aria-labelledby="s2">
+    <h2 id="s2">Small rate differences become large balance differences</h2>
+    <p>Going from 4% to 8% doesn't just double the growth; it halves the doubling time, from about 18 years to about 9. Over 36 years, that is two doublings versus four: four times versus sixteen times the starting amount.</p>
+    <p>Try it yourself: how many doublings would 36 years give at 6%?</p>
+  </section>
+</main>
+
+<script>
+document.documentElement.classList.add('js');
+(function () {
+  var rate = document.getElementById('rate');
+  var out = document.getElementById('out');
+  var svg = document.getElementById('chart');
+  var NS = 'http://www.w3.org/2000/svg';
+  var START = 4;
+  var MAX_YEARS = 36;
+  var W = 600, H = 180, PAD = 20;
+  var bars = [];
+  for (var i = 0; i <= MAX_YEARS; i++) {
+    var r = document.createElementNS(NS, 'rect');
+    r.setAttribute('class', 'bar');
+    r.setAttribute('x', PAD + i * ((W - 2 * PAD) / (MAX_YEARS + 1)));
+    r.setAttribute('width', (W - 2 * PAD) / (MAX_YEARS + 1) - 2);
+    svg.appendChild(r); bars.push(r);
+  }
+  var label = document.createElementNS(NS, 'text');
+  label.setAttribute('x', PAD); label.setAttribute('y', 14);
+  svg.appendChild(label);
+
+  function years(p) { return Math.log(2) / Math.log(1 + p / 100); }
+  function draw() {
+    var p = +rate.value, n = years(p);
+    var top = 2;   // scale: bar for 2x reaches the top
+    bars.forEach(function (b, i) {
+      var visible = i <= Math.ceil(n);
+      var v = visible ? Math.pow(1 + p / 100, i) : 0;
+      var h = (Math.min(v, top) / top) * (H - 40);
+      b.setAttribute('height', h);
+      b.setAttribute('y', H - 20 - h);
+      b.setAttribute('class', 'bar' + (i === 0 ? ' base' : ''));
+    });
+    label.textContent = 'Each bar is one year; the last bar reaches $2,000.';
+    out.textContent = p + '%: doubles in about ' + Math.round(n) + ' years (rule of 72 says ' + (72 / p).toFixed(1) + ')';
+  }
+  rate.addEventListener('input', draw);
+  document.getElementById('reset').addEventListener('click', function () { rate.value = START; draw(); });
+  draw();
+})();
+</script>
+</body>
+</html>

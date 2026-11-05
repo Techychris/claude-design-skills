@@ -1,5 +1,5 @@
 ---
-name: design-lean
+name: "design-lean"
 description: "Use instead of the built-in design skill to build, polish (unslop) or review UI: landing pages, sites, dashboards, app screens. Same craft rules, run as a gated workflow with a faster gate script. Faux product UI goes to design-demo."
 ---
 

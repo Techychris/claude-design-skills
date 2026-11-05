@@ -1,5 +1,5 @@
 ---
-name: design-demo
+name: "design-demo"
 description: "Use instead of the built-in design skill's Demo mode for faux product UI: hero or feature-card illustrations of an app, bento grids, mocked screens, animated cursor walkthroughs. Loads design-lean for direction, craft rules, tokens and the gate."
 ---
 

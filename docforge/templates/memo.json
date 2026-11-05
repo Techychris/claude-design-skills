@@ -1,0 +1,13 @@
+{ "theme": "slate",
+  "meta": { "title": "Travel Policy Update", "org": "Meridian Analytics", "to": "All Staff", "from": "Finance Operations", "re": "Updated travel & expense policy, effective August 1" },
+  "chrome": { "footer": true },
+  "blocks": [
+    { "type": "memohead" },
+    { "type": "p", "text": "Effective **August 1**, three changes apply to travel booking and reimbursement. Everything else in the current policy is unchanged." },
+    { "type": "h2", "text": "What changes" },
+    { "type": "numbered", "items": [ "All flights must be booked through the travel portal; out-of-portal bookings are reimbursed at portal-equivalent fare only.", "Hotel cap moves from $220 to $250/night in tier-1 cities.", "Receipts are required for any expense over $25 (previously $50)." ] },
+    { "type": "callout", "variant": "success", "title": "No action needed", "text": "Trips booked before August 1 are grandfathered under the current policy, even if travel occurs later." },
+    { "type": "h2", "text": "Why" },
+    { "type": "p", "text": "Portal compliance fell to 71% last quarter, which costs us negotiated-rate savings and makes duty-of-care tracking unreliable. The receipt threshold aligns us with audit guidance." },
+    { "type": "p", "text": "Questions: reach Finance Operations on the #travel channel." }
+  ] }

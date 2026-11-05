@@ -1,0 +1,14 @@
+{ "theme": "meridian",
+  "meta": { "title": "Project Lighthouse — Executive Brief", "subtitle": "One-page status for the July steering meeting", "org": "Meridian Analytics" },
+  "chrome": { "footer": true },
+  "blocks": [
+    { "type": "h1", "text": "Project Lighthouse" },
+    { "type": "p", "text": "Migration of the reporting stack to the unified data platform. **Phase 2 of 3.** Overall status: on track with one watched risk." },
+    { "type": "metrics", "items": [ { "value": "68%", "label": "complete" }, { "value": "Sep 12", "label": "phase 2 gate" }, { "value": "$310K", "label": "spend vs $340K" }, { "value": "2", "label": "open risks" } ] },
+    { "type": "h2", "text": "Since last review" },
+    { "type": "bullets", "items": [ "Ingestion cutover finished for 14 of 16 source systems.", "Latency on the exec dashboard cut from 9s to 2.1s.", "Legacy report deprecation notice sent; 3 teams flagged dependencies." ] },
+    { "type": "h2", "text": "Watched risk" },
+    { "type": "callout", "variant": "warn", "title": "Vendor SSO dependency", "text": "Identity vendor's SAML patch slips to **August 22**. Mitigation in place: scoped service accounts for the two affected systems until the patch lands." },
+    { "type": "h2", "text": "Decisions needed" },
+    { "type": "numbered", "items": [ "Confirm the September 12 gate date with the two dependency-flagged teams.", "Approve carrying the SSO mitigation as an accepted risk through August." ] }
+  ] }
