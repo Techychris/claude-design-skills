@@ -78,14 +78,21 @@ node .design/gate.js page.html                          # the whole page
 node .design/gate.js tests/gate-fixture.html
 ```
 
-## Credits
+## Licenses and credits
 
-Several skills adapt other people's work:
+Eight skills reuse other people's work. Each of those folders has a `THIRD_PARTY_NOTICES.md` with the copyright and license notice for every source it uses, so the notices stay with a folder you copy on its own. [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) at the root lists them all, and the original license files are in [`LICENSES/`](LICENSES/).
 
-- `design`, `design-lean`, `design-demo`: frontend-design (Anthropic, Apache 2.0); unslop by Damir Sokolovsky (https://github.com/heydamir/unslop, CC BY 4.0), condensed and adapted; interface-design by Damola Akinleye (MIT); heuristic-evaluation and accessibility-audit from Designer Skills by MC Dean (MIT); Stageshow by Benji Taylor (https://github.com/benjitaylor/skills, MIT), as adapted in the Anthropic design skill. Full credits and the Stageshow license notice are at the end of those SKILL.md files.
-- `unslop`: adapted from unslop by Damir Sokolovsky (CC BY 4.0). Credit is at the top of the file.
-- `interface-design`: by Damola Akinleye (MIT).
-- `heuristic-evaluation`, `accessibility-audit`: from Designer Skills by MC Dean (MIT).
-- `web-motion`: merges three MIT-licensed sources, credited at the end of the file.
+| Source | Author | License | Used in |
+| --- | --- | --- | --- |
+| [frontend-design](https://github.com/anthropics/skills/tree/main/skills/frontend-design) | Anthropic | Apache 2.0 | `design`, `design-lean` |
+| [unslop](https://github.com/heydamir/unslop) | Damir Sokolovsky | CC BY 4.0 | `unslop`, `design`, `design-lean` |
+| [interface-design](https://github.com/Dammyjay93/interface-design) | Damola Akinleye | MIT | `interface-design`, `design`, `design-lean` |
+| [Designer Skills](https://github.com/Owl-Listener/designer-skills) | MC Dean | MIT | `heuristic-evaluation`, `accessibility-audit`, `design`, `design-lean` |
+| [Stageshow](https://github.com/benjitaylor/skills/tree/main/stageshow) | Benji Taylor | MIT | `design`, `design-demo` |
+| [skills](https://github.com/emilkowalski/skills) | Emil Kowalski | MIT | `web-motion` |
+| [motion-design-skill](https://github.com/LottieFiles/motion-design-skill) | LottieFiles | MIT | `web-motion` |
+| [animation-principles](https://github.com/dylantarre/animation-principles) | Dylan Tarre | MIT | `web-motion` |
 
-No license file is included. The skills combine material under CC BY 4.0, MIT and Apache 2.0 with Anthropic's design skill, which doesn't state its own license.
+`ux-wireframe`, `ux-mapping` and `diagram-forge` credit other projects for ideas only, not text, so they carry no license notice. Their credits are in their SKILL.md files.
+
+`design`, `design-lean` and `design-demo` are also built from Anthropic's design skill, which doesn't state a license. Because of that, and because the repo mixes CC BY 4.0, MIT and Apache 2.0 material, there's no single license for the repo as a whole.
