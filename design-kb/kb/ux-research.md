@@ -83,7 +83,7 @@ Built 2026-11-12 from two local clones, read-only. Tags: [verified] = read in th
     - `jakobs-law`: users expect products to work like ones they already use
     - `loading-states`: spinners, skeletons, optimistic updates
     - `micro-interaction-spec`: one micro-interaction in full, for engineering
-    - `millers-law`: chunk information into groups of about four
+    - `millers-law`: Miller (1956) said 7 plus or minus 2; Cowan (2001) argues about 4 chunks; treat both as contested, not as a layout cap
     - `navigation-patterns`: tabs, drawer, hierarchy or hub
     - `onboarding-design`: first-run activation path and time to first value
     - `peak-end-rule`: a flow is remembered by its peak and its end
@@ -133,8 +133,8 @@ Built 2026-11-12 from two local clones, read-only. Tags: [verified] = read in th
   - **heuristic-evaluation** (`prototyping-testing/skills/heuristic-evaluation/SKILL.md`)
     - Use three to five evaluators, each working alone before findings are compared. [verified]
     - Score each issue 0 to 4; a 4 ("usability catastrophe") is imperative to fix before release, per Nielsen's scale. [verified: nngroup.com, 2026-11-12]
-    - Walk each task flow twice: once as a new user, once as an experienced one. [verified]
-    - Pair the expert review with real-user testing rather than replacing it. [verified]
+    - Make two passes: a first orientation pass with no judging, then a second pass checking each heuristic (NN/g). [verified]
+    - Pair the expert review with real-user testing rather than replacing it. (unsourced)
   - **accessibility-audit** (`design-systems/skills/accessibility-audit/SKILL.md`)
     - Organise findings around the four POUR principles and rate them Critical, Major, Minor or Enhancement. [verified]
     - Record each issue with its WCAG criterion, impact, remediation steps and a code example. [verified]
@@ -156,6 +156,7 @@ Built 2026-11-12 from two local clones, read-only. Tags: [verified] = read in th
     - Phrase feedback as an observation, a question, a suggestion, or an opinion with its reason. [verified]
     - Keep exploration and refinement critiques separate; give each action an owner and a deadline. [verified]
 - **License:** MIT, Copyright (c) 2026 MC Dean (LICENSE). The marketplace owner carries the same name. [verified]
+- **Sample-size rules (NN/g, not in these skills)**: qualitative usability tests 5 users; quantitative at least 20 (not the often-repeated 40); card sorting 15 per group; eyetracking 39. SUS average is 68 (Sauro, about 500 studies). A/B tests: fix sample size in advance, do not peek, 95% confidence is conventional. pm-skills' phase skills use the repo's own "Triple Diamond"; the Double Diamond is Design Council (2004). Single-evaluator severity ratings are unreliable; NN/g suggests the mean of about 3 raters.
 - **Gotchas**
   - The README claims 273 skills and 76 commands across 33 plugins in five collections. Counted at current upstream HEADs the five collections hold 275 skills (111 here, 164 elsewhere) and 76 commands (34 here, 42 elsewhere); the 33 plugins match. The other four collections live in separate repos, pulled in by marketplace.json as git-subdir sources. [verified online 2026-11-12]
   - The brief said 10 groups; the clone has 9 plugins. [verified]
@@ -183,12 +184,12 @@ Built 2026-11-12 from two local clones, read-only. Tags: [verified] = read in th
   - **design-critique** (`skills/design-critique/SKILL.md`)
     - Establish who the user is, what they are trying to do, where in the journey this screen sits, and the constraints, before judging. [verified]
     - Do a five-second first-impression scan; if the primary action is unclear, the hierarchy has a problem. [verified]
-    - Score heuristic violations 0 to 4; a 4 blocks task completion and must be fixed before release. [verified]
+    - Score heuristic violations 0 to 4; a 4 is a usability catastrophe: imperative to fix before release (Nielsen). [verified]
     - Phrase each point as the problem, the principle it breaks, why it matters to the user, and a specific fix; when unsure, recommend testing. [verified]
   - **journey-mapping** (`skills/journey-mapping/SKILL.md`)
-    - Keep a journey map to three to seven phases; ten or more becomes unreadable. [verified]
+    - Keep a journey map to three to seven phases; ten or more becomes unreadable (the skill's rule of thumb; NN/g sets no number; unsourced). [verified]
     - Map one persona per journey, and compare maps rather than averaging personas. [verified]
-    - Interview at least five users before mapping, and map the current state before designing the future one. [verified]
+    - Interview enough users to ground each phase (the skill says five; NN/g gives no minimum; unsourced), and map the current state before designing the future one. [verified]
     - Always include a feeling row, since leaving it out drops the most actionable layer. [verified]
   - **accessibility-audit** (`skills/accessibility-audit/SKILL.md`)
     - Target WCAG 2.2 AA by default, and apply AAA criteria where practical for contrast, text and target size. AA contrast thresholds: 4.5:1 normal text, 3:1 large text (18pt, or 14pt bold) and 3:1 non-text (SC 1.4.3, 1.4.11). [verified: w3.org]
@@ -204,3 +205,5 @@ Built 2026-11-12 from two local clones, read-only. Tags: [verified] = read in th
 ## Not read
 
 - designer-skills: CONTRIBUTING.md, README.md past line 150, INDEX.md past line 120, the .github workflows, script bodies, all command files, and the bodies of 106 of 111 SKILL.md files (frontmatter read for all). cuellarfr: index.html, references, templates and examples; the bodies of seven of ten skills were not read, and the other three were read only in part (frontmatter read for all).
+
+_Validated 2026-11-12 against primary sources; see ../validation-reports/._

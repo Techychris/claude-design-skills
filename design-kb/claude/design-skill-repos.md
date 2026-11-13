@@ -31,5 +31,9 @@ Head: one package, `documd-visuals`. The `wireframe` skill (draw.io XML wirefram
 - cuellarfr/design-skills: 10 skills: accessibility-audit, design-critique, design-elevation, design-ops, design-systems, interaction-design, journey-mapping, ux-research, ux-strategy, ux-writing.
 - product-on-purpose/pm-skills: 68 skills across discover, define, develop, deliver, measure, iterate, foundation, two sprint tool families and utilities.
 - rampstackco/claude-skills: 109 stack-agnostic skills in 16 groups (brand, design, content, SEO, product, research and more).
-- nexu-io/open-design: 169 skills in `skills/` (562 SKILL.md repo-wide), 116 design templates, 152 design systems, 12 craft rule files.
+- nexu-io/open-design: 169 skills in `skills/` (562 SKILL.md repo-wide), 116 design templates, 151 design systems (README), 12 craft rule files.
 - bluzir/claude-code-design: 20 skills plus starter components and Chrome DevTools MCP; no license file.
+
+CC BY 4.0 repos (unslop, markdown-viewer) also require a link to the licence and a note of changes in adapted skills. bluzir count: 20 skills per its README tree (a directory count gave 19 folders).
+
+_Validated 2026-11-12 against primary sources; see ../validation-reports/._

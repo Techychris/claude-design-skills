@@ -3,6 +3,7 @@
 Checked 2026-11-12 against base-ui.com, github.com/mui/base-ui and the npm registry. Checks cover KB `ui-core.md` sections 2 and 4 (Base UI rows). No local clone was modified.
 Verdicts: CONFIRMED = official source says the same. CONTRADICTED = official source says otherwise. STALE = was true, now outdated. UNVERIFIABLE = no official source found in this run, or the source is local-only.
 Tags: [verified] = read on an official page this run. [inferred] = deduced, not read on a page.
+Status (2026-11-12): Stable since v1.0.0 (released 2025-12-11, 35 components then; https://base-ui.com/react/overview/releases); latest @base-ui/react 1.9.0 (npm 2026-10-09). The repo README does not say it is stable, so cite the release page. The package was renamed from `@base-ui-components/react` (last 1.0.0-rc.0) to `@base-ui/react`. Peer deps: react and react-dom ^17 || ^18 || ^19 (not React-19-only); date-fns ^4 and @date-fns/tz ^1.2 are also listed as peers (calendar-related; optionality not confirmed) [verified https://registry.npmjs.org/@base-ui/react]. Ships its own Drawer (since v1.3.0), Toast, Autocomplete, Number Field, OTP Field and Meter. shadcn new projects default to Base UI since July 2026 (`shadcn init -b radix` to opt out) [verified https://ui.shadcn.com/docs/changelog/2026-07-base-ui-default]; shadcn Drawer now wraps Base UI Drawer, not Vaul.
 
 Pages fetched this run are the source for every verdict. "Not fetched" means the page was not opened, so the rule stays unchecked.
 
@@ -28,7 +29,7 @@ Pages fetched this run are the source for every verdict. "Not fetched" means the
 | 2.12 | Focus props `initialFocus` and `finalFocus` on the popup | CONFIRMED | https://base-ui.com/react/components/dialog ; https://base-ui.com/react/components/popover | Both props accept a boolean, a ref, or a function (dialog). Defaults: first tabbable element; return to trigger. |
 | 2.13 | ARIA wiring and focus handling sit inside each component (was marked [inferred]) | CONFIRMED (general); per-component audit still open | https://base-ui.com/react/overview/accessibility | Docs say components manage ARIA, roles, pointer interaction, keyboard support and focus. This upgrades the KB tag to [verified] at the general level. |
 | 2.14 | `data-open` / `data-closed` / `data-starting-style` / `data-ending-style` exist on overlay parts | CONFIRMED (dialog, popover) | https://base-ui.com/react/components/dialog ; https://base-ui.com/react/components/popover | Not in the KB; listed here because they are the animation hooks. |
-| 2.15 | Component inventory: 39 folders in `packages/react/src` | UNVERIFIABLE (count) | https://base-ui.com/llms.txt | Public docs list 37 components. The KB folder list adds `filter-dropdown` and `radio`, which the public list does not have. They may be internal or unreleased. Local-only check. |
+| 2.15 | Component inventory: 39 folders in `packages/react/src` | 37 public components VERIFIED; 39-folder count UNVERIFIABLE | https://base-ui.com/llms.txt | llms.txt lists 37 component pages (incl. Drawer, Toast, Autocomplete, Number Field, OTP Field, Meter); utilities: csp-provider, direction-provider, merge-props, use-render. Public docs list 37 components. The KB folder list adds `filter-dropdown` and `radio`, which the public list does not have. They may be internal or unreleased. Local-only check. |
 | 2.16 | MIT license | CONFIRMED | https://github.com/mui/base-ui | Repo page says MIT. |
 | 2.17 | Copyright line "(c) 2019 Material-UI SAS" | UNVERIFIABLE | https://github.com/mui/base-ui | The LICENSE file was not fetched; the repo page does not show the copyright line. |
 | 2.18 | Structure: `packages/react`, `packages/utils`, `GLOSSARY.md`, `AGENTS.md`, etc. | UNVERIFIABLE online | n/a | Local-only facts about the clone. |
@@ -46,7 +47,7 @@ Pages fetched this run are the source for every verdict. "Not fetched" means the
 | 4.7 | No Base UI counterpart: AspectRatio | CONFIRMED | https://base-ui.com/llms.txt | Not in the public component list. |
 | 4.8 | No Base UI counterpart: Label | CONFIRMED (as a standalone component) | https://base-ui.com/react/handbook/forms | Base UI has Field.Label instead. Say "use Field.Label" in the KB. |
 | 4.9 | No Base UI counterpart: VisuallyHidden | CONFIRMED | https://base-ui.com/llms.txt | Not in the public component list. |
-| 4.10 | No Base UI counterpart: Direction (provider) | CONTRADICTED | https://base-ui.com/react/utils/direction-provider | Base UI ships a DirectionProvider and a useDirection hook (utils). KB section 1 line 66 already says Direction maps to a `direction` prop on DirectionProvider, so section 4 contradicts section 1. |
+| 4.10 | No Base UI counterpart: Direction (provider) | WRONG: Direction -> DirectionProvider (react/utils/direction-provider) | https://base-ui.com/react/utils/direction-provider | Base UI ships a DirectionProvider and a useDirection hook (utils). KB section 1 line 66 already says Direction maps to a `direction` prop on DirectionProvider, so section 4 contradicts section 1. |
 | 4.11 | No Base UI counterpart: Popover Anchor | CONFIRMED | https://base-ui.com/react/components/popover | Base UI Popover parts list has no Anchor. |
 | 4.12 | No Base UI counterpart: NavigationMenu Indicator | UNVERIFIABLE | not fetched | Navigation Menu page was not opened. |
 | 4.13 | Known behaviour deltas: tabs activation, menu close-on-click, nav-menu delay | UNVERIFIABLE | not fetched | Tabs, Menu and Navigation Menu pages were not opened. |
@@ -120,3 +121,5 @@ Items are listed only when fetched or seen in a search result this run.
 | 12 | llms.txt index | https://base-ui.com/llms.txt | Machine-readable index | Full list of docs pages with .md URLs; useful for LLM and tooling access. [verified] |
 | 13 | mui/base-ui (GitHub) | https://github.com/mui/base-ui | Repository | Source, MIT license, stated goals; the repo page shows about 11.3k stars at fetch time. [verified] |
 | 14 | TypeScript handbook | https://base-ui.com/react/handbook/typescript | Handbook | Typing components and the render prop. Seen in search results; not fetched. |
+
+_Validated 2026-11-12 against primary sources; see ../../validation-reports/._

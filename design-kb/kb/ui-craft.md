@@ -33,12 +33,12 @@ Path: /home/claude/heydamir/unslop (HEAD 97daa3e)
 2. Pick a mode: heavy slop (full nine passes), light slop (polish only, keep the existing brand), or no slop (say so, offer at most three small refinements). [verified SKILL.md "Run it" step 3]
 3. Write a five-line direction (product, character, world, moments, signature) before editing. Wait for the user unless they said to just do it. [verified SKILL.md "Direction" and step 4]
 4. Ban generic character words such as clean, modern, sleek, minimal, premium. [verified SKILL.md "Direction"]
-5. Spacing on a 4px grid; replace one-off values like mt-[13px] with scale steps. [verified SKILL.md section 1]
-6. Neutral surfaces with one rare accent. Remove hue-to-hue gradients, gradient text and colored glows. Hairline borders at 6 to 10% opacity. [verified SKILL.md section 2]
-7. One icon set, 16 or 18px, 1.5 stroke; drop decorative emoji. [verified SKILL.md section 3]
-8. Sentence case, weights 400 and 500 (600 rare), no 700 to 900 headings, no uppercase tracked labels. [verified SKILL.md section 5]
-9. Nested radius equals outer radius minus padding, minimum 4. [verified SKILL.md section 7]
-10. Remove looping motion, transition-all, hover scale on cards. Animate only transform and opacity; name the properties. [verified SKILL.md section 9]
+5. Spacing on a 4px grid (Material uses 8dp for components, 4dp for icons and type); replace one-off values like mt-[13px] with scale steps. [verified SKILL.md section 1]
+6. Neutral surfaces with one rare accent. Remove hue-to-hue gradients, gradient text and colored glows. Hairline borders at 6 to 10% opacity for decoration only (unsourced style choice); borders that mark an input or button boundary need 3:1 contrast (WCAG 1.4.11, AA). [verified SKILL.md section 2]
+7. One icon set, 16 or 18px, 1.5 stroke (unsourced house style); drop decorative emoji. [verified SKILL.md section 3]
+8. Sentence case, weights 400 and 500 (600 rare), no 700 to 900 headings, no uppercase tracked labels (unsourced taste rule). [verified SKILL.md section 5]
+9. Nested radius equals outer radius minus padding (confirmed; also subtract border width, small radii need optical tuning), minimum 4 (unsourced). [verified SKILL.md section 7]
+10. Remove looping motion, transition-all, hover scale on cards. Animate only transform and opacity (web.dev: the only compositor-only properties; article from 2015); name the properties. [verified SKILL.md section 9]
 11. Do not invent proof claims ("10x faster"). Confirm with the user or remove them, and list them in the report. [verified SKILL.md section 4]
 12. Render again after the passes and compare with the audit list; fix anything still on it. [verified SKILL.md "Run it" step 6]
 13. Keep a visual-generation rule: ask before every paid image generation; dashboards rarely need images. [verified README.md "What it does"]
@@ -81,9 +81,9 @@ Path: /home/claude/dammyjay93/interface-design (HEAD 2f9be32)
 3. Before every component, state intent, hierarchy, palette, depth, surfaces, typography and spacing, each with a reason. [verified SKILL.md "Before Writing Each Component"]
 4. Use what exists: native HTML first, then a headless primitive for stateful controls, hand-roll last and then owe the full keyboard and ARIA contract. [verified SKILL.md "Use What Exists"]
 5. Pick one depth strategy and keep it: borders only, subtle shadows, layered shadows, or surface shifts. Do not mix. [verified SKILL.md "Design System Essentials"]
-6. Dark themes: step surfaces by a few percent of lightness and use low-alpha white borders; shadows do not read on dark. [verified SKILL.md "Subtle Layering" and "Polish"]
-7. Type: pick a ratio around 1.2 to 1.333, and make hierarchy with weight and color before size. [verified SKILL.md "Type scale"]
-8. Motion: keep UI under 300ms, use an ease-out curve, animate only transform and opacity, never scale from 0, and skip animation on actions repeated many times a day. [verified SKILL.md "Motion"]
+6. Dark themes: step surfaces by a few tone points (M3 dark surface containers: neutral 4, 10, 12, 17, 22) and use low-alpha white borders; shadows do not read on dark (borders and shadows claim unsourced). [verified SKILL.md "Subtle Layering" and "Polish"]
+7. Type: pick a ratio around 1.2 to 1.333 (unsourced convention; Apple gives size floors instead: 17 pt default, 11 pt minimum on iOS), and make hierarchy with weight and color before size. [verified SKILL.md "Type scale"]
+8. Motion: keep UI under 300ms (NN/g: 100-500 ms overall, see motion.md), use an ease-out curve, animate only transform and opacity, never scale from 0, and skip animation on actions repeated many times a day. [verified SKILL.md "Motion"]
 9. Run four checks before showing work: swap, squint, signature (point to five elements), token (read the variable names aloud). [verified SKILL.md "The checks"]
 10. Verify visually at desktop and mobile widths before presenting. [verified SKILL.md "Execution discipline" 5]
 11. After the task, offer to save decisions to `.interface-design/system.md`. Once saved, hold later work to those values. [verified SKILL.md "After Completing a Task"]
@@ -127,9 +127,9 @@ Path: /home/claude/bluzir/claude-code-design (HEAD ce68c84)
 4. Copy starters into the artifact folder rather than referencing them with a relative path. [verified CLAUDE.md "Artifact flow" 2]
 5. Artifacts that load external .jsx need /serve (python3 http.server on 127.0.0.1:4567). file:// fails on CORS. [verified CLAUDE.md; serve.md]
 6. Never edit artifact HTML without an explicit request. The tweak panel only buffers changes to pending.yaml. [verified CLAUDE.md "Tweaks persistence"]
-7. Pin React 18.3.1 and Babel 7.29.0 with integrity hashes. Never declare a top-level `const styles`; prefix names per component. [verified CLAUDE.md "React + Babel contract"]
+7. Pin React 18.3.1 and Babel 7.29.0 with integrity hashes (both are behind current: React 19.3.1, Babel standalone 8.1.2). Never declare a top-level `const styles`; prefix names per component. [verified CLAUDE.md "React + Babel contract"]
 8. Anti-patterns: no Inter, Roboto, Arial or Fraunces; no emoji unless asked; no aggressive gradients; no rounded card with a left accent border; no invented stats. [verified CLAUDE.md "Anti-patterns"]
-9. Minimum sizes: slide text 24px or more; print 12pt or more; mobile hit targets 44px or more. [verified CLAUDE.md "Scales"]
+9. Minimum sizes: slide text 24px or more; print 12pt or more; mobile hit targets 44px or more (Apple 44 pt default, 28 pt minimum; Android 48dp with 8dp gaps; WCAG 2.5.8 AA floor 24 CSS px, 2.5.5 AAA 44 CSS px). Slide text 24px+ and print 12pt+ are repo-specific, unsourced. [verified CLAUDE.md "Scales"]
 10. Done gate: a clean console, a verify-artifact pass, and a screenshot path quoted in the summary. [verified CLAUDE.md "Verification"]
 11. Deck gate: hard-reload with cache bypass. Any overflow above 0 fails; headroom under 40px warns. [verified CLAUDE.md "Deck-specific gate"]
 12. Wireframes are greyscale, use placeholders, show at least three options on a design canvas, and mix conservative with novel options. [verified .claude/skills/wireframe/SKILL.md]
@@ -138,7 +138,7 @@ Path: /home/claude/bluzir/claude-code-design (HEAD ce68c84)
 - `git clone https://github.com/bluzir/claude-code-design.git`, then open Claude Code in that folder and run `/doctor`.
 - `claude mcp add chrome-devtools -s user -- npx chrome-devtools-mcp@latest` (needs a restart).
 - `brew install monolith` (only for /export-standalone). `npm install -D pptxgenjs puppeteer` (PPTX and PDF export).
-- Node 20 or newer for the scripts. Optional: `gh` for /ingest-github, FIGMA_TOKEN for /ingest-figma.
+- Node 20.19 or newer for the scripts (Node 20 is EOL since 2026-04-30; prefer Node 22 or 24). Optional: `gh` for /ingest-github, FIGMA_TOKEN for /ingest-figma.
 
 **License.** No LICENSE file in the repo. README.md says MIT; package.json says ISC. The two disagree. Treat it as unlicensed until the owner confirms. [verified file list and both declarations; the conservative reading is [inferred]]
 
@@ -161,8 +161,8 @@ Path: /home/claude/markdown-viewer/wireframe-skill/wireframe. Not a git repo.
 
 **Rules and checks.**
 1. Use a ```drawio fence. Never a ```xml fence, which does not render. [verified SKILL.md]
-2. Spacing: 10px tight, 20px normal, 40px between sections. [verified SKILL.md]
-3. Canvas sizes: iPhone 375x812, Android 360x800, desktop web 1200 or 1440 wide. [verified SKILL.md]
+2. Spacing: 10px tight, 20px normal, 40px between sections (off the 4/8 grid; prefer 8/16/40 for consistency). [verified SKILL.md]
+3. Canvas sizes: iPhone 375x812 (legacy; current iPhone 17 is 402x874), Android 360x800 (unsourced), desktop web 1200 or 1440 wide. [verified SKILL.md]
 4. Pick a type from the table: web (mxgraph.mockup.*), iOS (mxgraph.ios7.*), Android (mxgraph.android.*), dashboard (mxgraph.mockup.*). [verified SKILL.md table]
 5. Follow the base drawio rules for structure and edge routing, and check the stencil list before naming a shape. [verified SKILL.md; base files missing, see gotchas]
 
@@ -194,3 +194,27 @@ Path: /home/claude/markdown-viewer/skills (HEAD 2672b69). This repo no longer co
 **Gotchas.**
 - The README counts were recounted on 2026-11-12 and match: 242 example files, 183 scenarios in catalog/scenarios.json, 31 goal files in goals/. [verified online validation]
 - The recent head commits made the documd CLI optional and removed the dot engine, so older guidance may mention dot. [verified git log]
+
+## 7. Validation additions (2026-11-12)
+
+Accessibility numbers the KB lacked:
+- Contrast: WCAG 1.4.3 needs 4.5:1 for text, 3:1 for large text (18 pt, or 14 pt bold). WCAG 1.4.11 needs 3:1 for UI components and focus indicators. WCAG 3.0 is a Working Draft (10 September 2026); its contrast algorithm "is yet to be determined" and it does not replace WCAG 2. Apple HIG names APCA as popular but uses WCAG AA ratios.
+- Text spacing (WCAG 1.4.12, AA): content must survive line height 1.5x, paragraph spacing 2x, letter spacing 0.12x, word spacing 0.16x. A 45-75 character measure was not verified against a primary source (unsourced if used).
+- Motion: WCAG 2.2.2 (A) and 2.3.3 (AAA); see motion.md.
+- Apple Layout: order by importance (top and leading side), align, group, progressive disclosure.
+
+Browser support (2026-11-12, caniuse and MDN BCD):
+
+| Feature | Chrome/Edge | Firefox | Safari / iOS |
+|---|---|---|---|
+| Container queries (size) | 105 | 110 | 16.0 (global 95.96%) |
+| dvh/svh/lvh | 108 | 101 | 15.4 (global 96.07%) |
+| View Transitions, same-document | 111 | 144 | 18.0 |
+| Scroll-driven animations | 115 | 159 | 26 |
+| light-dark() | 123 | 120 | 17.5 |
+| text-wrap: balance | 130 | 121 | 17.5 |
+| Viewport Segments (foldables) | 138 | no | no |
+| Device Posture | 132 | no | no |
+
+
+_Validated 2026-11-12 against primary sources; see ../validation-reports/._

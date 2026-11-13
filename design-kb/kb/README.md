@@ -1,6 +1,6 @@
 # Design knowledge base
 
-Built 2026-11-12. Seven Haiku subagents each read local clones of 22 repos and wrote one file; the main session spot-checked them. A second round of eight Haiku subagents then validated the claims online (see `kb/validation.md`: 130 of 162 confirmed, 14 contradicted, 3 stale, 15 unverifiable). Corrections are applied in the files below, except `kb/motion.md`, which needed none. Repos with no public source (Beautiful UI, Aceternity UI) are not covered.
+Built 2026-11-12. Seven Haiku subagents each read local clones of 22 repos and wrote one file; the main session spot-checked them. A second round of eight Haiku subagents then validated the claims online (see `kb/validation.md`: 130 of 162 confirmed, 14 contradicted, 3 stale, 15 unverifiable; self-reported by an earlier subagent round, not reproducible from these files). Corrections are applied in the files below, except `kb/motion.md`, which needed none. Repos with no public source (Beautiful UI, Aceternity UI) are not covered.
 
 A third round (2026-11-12) added `kb/ux-mastery.md`: ten Haiku subagents researched UI/UX foundations on the live web rather than from repos, followed by focused passes on visual hierarchy, iconography, spacing, composition, devices and viewports, and a gap audit of Apple's HIG and the Android and Material docs (including foldables). It uses its own tags (`[verified]`, `[rechecked]`, `[estimated]`, `[assumed]`, `unknown`), defined at the top of that file.
 
@@ -29,6 +29,7 @@ Also in this folder: `claude/design-sources-index.md` (repo, license and skill m
 - **Name overlaps:** cuellarfr and designer-skills share seven skill names (accessibility-audit, design-critique, ux-writing, design-ops, design-systems, interaction-design, ux-strategy); installing both may collide. (`kb/ux-research.md`)
 - **Wireframe tooling:** the recovered markdown-viewer `wireframe` skill uses draw.io; the repo's current `documd-visuals` package advises against it. (`kb/ui-craft.md`)
 - **Form validation timing:** Baymard says validate inline on blur; GOV.UK says validate only on submit. (`kb/ux-mastery.md`, sections 7 and 13)
+- **Research sample sizes:** these are NN/g's rules: 5 qualitative, at least 20 quantitative, 15 per group for card sorting, 39 for eyetracking. (`kb/ux-research.md`)
 - **Miller's 7 vs 4 and other contested "laws":** see the table in `kb/ux-mastery.md` section 2.
 - **Icon stroke by size:** one guide uses 1 px at 16 px and 1.5 px at 24 px; another calls 2 px the 24 px convention. (`kb/ux-mastery.md`, iconography)
 
@@ -59,3 +60,5 @@ Also in this folder: `claude/design-sources-index.md` (repo, license and skill m
 - Clone paths in the files (`/home/claude/...`) were session-local. Re-clone with `git clone --depth 1 https://github.com/<owner>/<repo>`.
 - `kb/ux-mastery.md` gaps are listed in its section 15 and in the "Not covered" lines of each section: dated legal items to re-check, Material 3 pages that did not load (layout, spacing, icons, breakpoints, motion tokens, predictive back, navigation rules), Apple iOS margins and the iPad, visionOS and watchOS pages, and uncovered topics such as dark-mode palettes, component API design, jobs-to-be-done, tablet usage and cross-device continuity. Its sources were fetched by Haiku agents; only the DOJ Title II and FTC items and the Apple iPhone Duo page were re-checked by the main session.
 - `kb/resources/ui-sdk.md`: UI SDK is in beta; adapter versions, last-commit date, accessibility behavior, bundle size and the canonical repo path (`vercel-labs/ui` vs `vercel-labs/ui-sdk`) are unconfirmed.
+
+_Validated 2026-11-12 against primary sources; see validation-reports/._

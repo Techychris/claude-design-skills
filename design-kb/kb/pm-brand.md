@@ -48,8 +48,8 @@ Heads: pm-skills 9b920db4 (clean tree); claude-skills 05905108.
    - Skip the document for trivially reversible choices, and send architecture choices to `develop-adr`.
 3. `skills/tool-design-sprint-readiness/SKILL.md`
    - Score eight canonical checks. All met is Go; one or two yellow flags is Conditional Go; three or more fails, or a hard fail on checks 1, 3 or 6, is Wait.
-   - Treat Friday customer access as a gate. Recruiting takes 7 to 10 days, so it starts at Go.
-   - Require a team of four to seven, and a Decider present for Monday framing, Wednesday supervote and Friday review.
+   - Treat Friday customer access as a gate. Recruiting takes 7 to 10 days, so it starts at Go. (unsourced; GV says recruiting starts Tuesday) [repo rule, not Sprint book]
+   - Require a team of up to seven (Sprint book; the repo's floor of four is its own), and a Decider present for Monday framing, Wednesday supervote and Friday review.
    - Require a prototype medium that two people can build in one day.
    - Confirm the team will act on the Friday result.
 4. `skills/tool-design-sprint-brief/SKILL.md`
@@ -59,7 +59,7 @@ Heads: pm-skills 9b920db4 (clean tree); claude-skills 05905108.
    - Give three to five success criteria.
    - Include a customer recruiting table and a one-paragraph prototype medium rationale.
 5. `skills/tool-design-sprint-map-and-target/SKILL.md`
-   - Set the long-term goal on a one-to-five-year horizon. A roadmap goal fails this test.
+   - Set the long-term goal on a six-month to five-year horizon (Sprint book). A roadmap goal fails this test.
    - Phrase three to seven sprint questions as testable "Can we / Will / How" risks, not solutions.
    - Keep the customer map to 5 to 15 steps, from key player to outcome.
    - Heat-map the How-Might-We notes with `tool-note-and-vote`, then cluster into four to eight themes.
@@ -73,7 +73,7 @@ Heads: pm-skills 9b920db4 (clean tree); claude-skills 05905108.
 7. `skills/tool-design-sprint-decide-and-storyboard/SKILL.md`
    - Run heat-map dots, then a straw poll, then the Decider's supervote. Do not average the votes.
    - Storyboard one sketch by default. Run a rumble only when two distinct approaches split the supervotes and the team can build both.
-   - Write 5 to 15 storyboard panels, each stating what the customer sees and does.
+   - Write 5 to 15 storyboard panels, each stating what the customer sees and does. [repo rule, not Sprint book; unsourced]
    - Run critique with the sketcher silent.
    - Treat the supervote as final. Reopening it on Thursday counts as sprint failure.
 8. `skills/tool-design-sprint-prototype-plan/SKILL.md`
@@ -83,7 +83,7 @@ Heads: pm-skills 9b920db4 (clean tree); claude-skills 05905108.
    - Run a trial with a stand-in customer on Thursday afternoon.
    - Re-confirm all five Friday participants on Thursday morning, while buffer slots can still be activated.
 9. `skills/tool-design-sprint-test-and-score/SKILL.md`
-   - Recruit five target-profile customers. Three to four or six to seven draws a documented warning; below three or above seven means re-deciding.
+   - Recruit five target-profile customers. Three to four or six to seven draws a documented warning; below three or above seven means re-deciding. [repo rule, not Sprint book]; the Sprint book says five.
    - Close Friday with a Decider call: build, iterate, pivot, stop or reframe.
    - Score the sprint questions against each customer on a grid.
    - Route the outcome: build to `deliver-prd`, iterate to `measure-experiment-design`, pivot to `iterate-pivot-decision`.
@@ -102,7 +102,7 @@ Heads: pm-skills 9b920db4 (clean tree); claude-skills 05905108.
 - `tool-design-sprint-sketch/SKILL.md` says sketches are due Tuesday end-of-day (line 51) and also Tuesday morning (line 58). [verified]
 - `discover-journey-map` puts service blueprints out of scope. `journey-mapping` in claude-skills includes one. The two repos disagree on scope. [verified]
 - The "68" count matches across README, QUICKSTART, CLAUDE.md and the folder count. [verified]
-- README says "200+ real-world sample outputs". `library/` holds 223 files in total, not all of them outputs. [inferred]
+- README says "200+ real-world sample outputs". `library/` holds 223 files in total, not all of them outputs. [inferred; 223 not rechecked, unsourced]
 
 ---
 
@@ -145,7 +145,7 @@ Heads: pm-skills 9b920db4 (clean tree); claude-skills 05905108.
    - Name an owner and a deprecation path before rollout.
 2. `skills/design-standards/SKILL.md`
    - Define color, spacing, type and radius tokens before building any UI. Hardcoded values are debt.
-   - Meet WCAG AA: 4.5:1 for body text, 3:1 for large text and UI elements.
+   - Meet WCAG AA: 4.5:1 for body text, 3:1 for large text and UI elements (a failing brand color is a problem only for text and UI use, not decoration).
    - Build mobile-first, then test at 375, 768, 1024 and 1440 px.
    - Run the pre-ship checklist in `references/preship-checklist.md` before release.
    - Avoid several competing primary elements; they flatten the scan order.
@@ -221,3 +221,5 @@ Heads: pm-skills 9b920db4 (clean tree); claude-skills 05905108.
 - Scope disagreement: `discover-journey-map` (pm-skills) refuses service blueprints; `journey-mapping` (claude-skills) includes one. [verified]
 - Shared research rule: both journey skills refuse or warn against maps without research evidence. [verified]
 - Design-sprint family (pm-skills) is a workshop method; the brand and design skills (claude-skills) cover craft outputs. No file reconciles the two. [inferred]
+
+_Validated 2026-11-12 against primary sources; see ../validation-reports/._

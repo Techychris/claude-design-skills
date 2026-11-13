@@ -21,11 +21,11 @@ Method notes: the GitHub raw paths for theming, dialog, field and input-group re
 | 7 | No manual `dark:` color overrides; use tokens (styling.md) | CONFIRMED (principle) | https://ui.shadcn.com/docs/theming | verified | Dark mode works by overriding the same tokens under `.dark`. The dark-mode page itself is a stub that links framework guides, so the "no dark:" ban is not stated there. |
 | 8 | Use `cn()` for conditional classes (styling.md) | UNVERIFIABLE | none | - | Not fetched. |
 | 9 | No manual `z-index` on overlays (styling.md) | UNVERIFIABLE | none | - | Not stated on any fetched page. |
-| 10 | Use `shimmer` and `scroll-fade` utilities, no custom keyframes (styling.md) | UNVERIFIABLE | none | - | The utilities do not appear in any fetched page. |
+| 10 | Use `shimmer` and `scroll-fade` utilities, no custom keyframes (styling.md) | VERIFIED (listing only) | https://ui.shadcn.com/docs/changelog/2026-04-sera | verified | The docs nav lists Utilities: scroll-fade, shimmer. Behaviour not read. |
 | 11 | Forms use `FieldGroup` + `Field` (forms.md) | CONFIRMED | https://ui.shadcn.com/docs/components/field | verified | Field page presents FieldGroup stacking Field components. |
 | 12 | `Field orientation="horizontal"` for settings pages (forms.md) | CONFIRMED (option exists); "settings pages" use INFERRED | https://ui.shadcn.com/docs/components/field | verified | Orientation is vertical, horizontal or responsive; docs pair horizontal with FieldContent. |
 | 13 | `FieldLabel className="sr-only"` for hidden labels (forms.md) | UNVERIFIABLE | none | - | Not stated. |
-| 14 | Option sets use `ToggleGroup`; count is 2 to 7 (forms.md) | CONFIRMED (use ToggleGroup for option sets); the 2 to 7 count UNVERIFIABLE | https://ui.shadcn.com/docs/components/toggle-group | verified | Docs state no option limit. Local files conflict: SKILL.md and forms.md "Choosing controls" say 2 to 5, forms.md "Option sets" says 2 to 7. STALE / internal inconsistency. |
+| 14 | Option sets use `ToggleGroup`; count is 2 to 7 (forms.md) | CONFIRMED (use ToggleGroup for option sets); the 2 to 7 count is unsupported: remove the numeric limit (and reconcile the 2 to 5) from the skill rules | https://ui.shadcn.com/docs/components/toggle-group | verified | Docs state no option limit. Local files conflict: SKILL.md and forms.md "Choosing controls" say 2 to 5, forms.md "Option sets" says 2 to 7. STALE / internal inconsistency. |
 | 15 | ToggleGroup `spacing={2}` in examples (forms.md) | CONFIRMED, with a change | https://ui.shadcn.com/docs/components/toggle-group | verified | The docs say the spacing default changed from 0 to 2 on 2026-05-17; `spacing={0}` makes items connected. The local example is consistent with the new default. |
 | 16 | `InputGroup` contains `InputGroupInput` / `InputGroupTextarea`, not raw `Input` (forms.md) | CONFIRMED | https://ui.shadcn.com/docs/components/input-group | verified | InputGroupInput is described as the replacement for Input in input groups. Docs show no raw Input example. |
 | 17 | Buttons inside inputs: `InputGroup` + `InputGroupAddon` with a `Button` (forms.md) | CONTRADICTED (the component in the example) | https://ui.shadcn.com/docs/components/input-group | verified | The addon wrapper is confirmed. The official examples put `InputGroupButton` inside the addon, and the rule's example uses a plain `Button`. Fix the example. |
@@ -58,14 +58,24 @@ Method notes: the GitHub raw paths for theming, dialog, field and input-group re
 | 44 | CLI commands in SKILL.md (info --json, search, docs, view, add --dry-run/--diff, apply --only, preset decode/url/open/resolve) | CONFIRMED | https://ui.shadcn.com/docs/cli | verified | All listed subcommands and flags appear in the CLI docs. `--overwrite` also exists; the "never without approval" rule is policy. |
 | 45 | Skill install and scope (SKILL.md, KB section 1) | CONFIRMED (install and scope); rule-file names UNVERIFIABLE | https://ui.shadcn.com/docs/skills | verified | Docs give `pnpm dlx skills add shadcn/ui` and say the skill covers CLI, theming, dark mode, registry and MCP. Docs do not list the rule files by name. |
 | 46 | Registry must be stated explicitly; ask the user (SKILL.md) | UNVERIFIABLE | none | - | Policy rule. |
-| 47 | Named presets nova, vega, maia, lyra, mira, luma (SKILL.md) | UNVERIFIABLE | none | - | Not checked against the docs. |
+| 47 | Named presets nova, vega, maia, lyra, mira, luma (SKILL.md) | NUANCE: nova, mira, luma, sera verified; vega, maia, lyra unverified | https://ui.shadcn.com/docs/changelog/2026-04-preset-commands ; https://ui.shadcn.com/docs/changelog/2026-03-luma ; https://ui.shadcn.com/docs/changelog/2026-04-sera | verified | nova (style `base-nova`), mira and luma are in the docs/changelog; vega, maia and lyra were not found; "sera" (April 2026) is a preset missing from the list. `preset decode\|resolve\|info\|url\|open` commands exist. |
 | 48 | Local rules say all components use semantic tokens with paired foreground tokens (KB section 1, theming) | CONFIRMED | https://ui.shadcn.com/docs/theming | verified | See row 1. |
+
+Update 2026-11-12: `Button render={<a href>} nativeButton={false}` is wrong for links; docs say "Do not use `<Button render={<a />} nativeButton={false} />` for links." Use `buttonVariants` on a plain `<a>` (Base UI Button forces role="button"). Inside `InputGroupAddon` use `InputGroupButton` (not Button), with icon buttons at `size="icon-xs"` plus an aria-label [verified https://ui.shadcn.com/docs/components/button ; /input-group].
 
 Summary: CONTRADICTED on rows 17 and 23; STALE / internal conflict on row 14 (the 2 to 5 vs 2 to 7 count); the rest are CONFIRMED or UNVERIFIABLE as marked.
 
 ---
 
 ## Missed guidelines (in official docs, absent or thin in the KB)
+
+Defaults and platform (added 2026-11-12, shadcn CLI 4.23.0, npm 2026-10-27)
+- Since July 2026, new projects default to Base UI; use `shadcn init -b radix` for Radix. Registry items without `registry:base` init as Base UI [verified https://ui.shadcn.com/docs/changelog/2026-07-base-ui-default].
+- shadcn Drawer now uses Base UI instead of Vaul; migration is `npm install vaul` -> `npm install @base-ui/react` [verified https://ui.shadcn.com/docs/components/drawer].
+- Tailwind v4 / React 19: components updated for both; existing v3/React 18 projects keep working; `default` style deprecated (new-york); tw-animate-css replaces tailwindcss-animate; forwardRef removed; `data-slot` on every primitive [verified https://ui.shadcn.com/docs/tailwind-v4]. The page's "Toast deprecated in favor of Sonner" is legacy text; Base uses `toast`, Radix uses `sonner`.
+- Unified Radix package: imports `import { Dialog as DialogPrimitive } from "radix-ui"`; migrate with `pnpm dlx shadcn@latest migrate radix` (Feb 2026) [verified https://ui.shadcn.com/docs/changelog/2026-02-radix-ui].
+- CLI (row 44) exact set: `init -t -b -p -y -d -f -c -n -s --css-variables --monorepo --rtl --pointer --reinstall`; `add -y -o -c -a -p -s --dry-run --diff [path] --view [path]`; `apply --preset --only [theme|font]`; `preset decode|resolve|info|url|open`; `view`; `search|list`; `build`; `docs -b base|radix|aria`; `info --json`; `migrate -l -f -t` [verified https://ui.shadcn.com/docs/cli].
+- Rules in rows 3, 4, 9, 36, 37, 46 (className layout-only, no space-y, no manual z-index, Separator/Skeleton/Badge, overlay table, state registry) are skill policy, not checkable from docs.
 
 Theming tokens [verified, theming]
 - Each surface token pairs with a `-foreground` token; the `background` suffix is dropped from names (`primary` pairs with `primary-foreground`).
@@ -114,3 +124,5 @@ Not covered by any fetched page (candidates for follow-up): data-disabled on Fie
 12. Base UI Dialog. https://base-ui.com/react/components/dialog. Type: official upstream docs. Why: render prop on Trigger and Title, and nativeButton for non-button triggers.
 
 Also fetched and useful: https://ui.shadcn.com/docs/components/radix/sonner (Radix toast with Toaster), https://ui.shadcn.com/docs/components/toast (Base toast with toast.add), https://ui.shadcn.com/docs/components/spinner, https://ui.shadcn.com/docs/components/select, https://ui.shadcn.com/docs/components/radix/select.
+
+_Validated 2026-11-12 against primary sources; see ../../validation-reports/._

@@ -4,7 +4,7 @@ Checked 2026-11-12 against radix-ui.com, github.com/radix-ui/primitives and the 
 Verdicts: CONFIRMED = official source says the same. CONTRADICTED = official source says otherwise. STALE = was true, now outdated. UNVERIFIABLE = no official source found in this run, or the source is local-only.
 Tags: [verified] = read on an official page this run. [inferred] = deduced, not read on a page.
 
-Note on the docs site: the Radix pages fetched are the official docs at radix-ui.com/primitives/docs. The philosophy page could not be fetched (client error), so its five principles remain unchecked.
+Note on the docs site: the Radix pages fetched are the official docs at radix-ui.com/primitives/docs. The philosophy page could not be fetched (client error), so its five principles remain unchecked. Update 2026-11-12: the philosophy URL returns 404; the intro page lists different principles (see 3.2).
 
 ---
 
@@ -15,10 +15,10 @@ Note on the docs site: the Radix pages fetched are the official docs at radix-ui
 | # | KB claim | Verdict | Deciding URL | Note |
 |---|---|---|---|---|
 | 3.1 | Low-level UI library focused on accessibility, customization and developer experience (README) | CONFIRMED | https://github.com/radix-ui/primitives ; https://www.radix-ui.com/primitives/docs/overview/introduction | Repo page and intro page both say this. [verified] |
-| 3.2 | Five principles: Accessible, Functional, Interoperable, Composable, Customizable (philosophy.md) | UNVERIFIABLE | https://www.radix-ui.com/primitives/docs/overview/philosophy | The philosophy page failed to fetch (client error). Local-only check. |
+| 3.2 | Five principles: Accessible, Functional, Interoperable, Composable, Customizable (philosophy.md) | OUTDATED | https://www.radix-ui.com/primitives/docs/overview/introduction | The philosophy URL now returns 404. Intro-page principles: Accessible (WAI-ARIA design patterns "where possible"), Unstyled, Opened, Uncontrolled, Developer experience, Incremental adoption. |
 | 3.3 | Components follow WAI-ARIA guidance and are tested across browsers and assistive technology | CONFIRMED (WAI-ARIA); test coverage named only in general terms | https://www.radix-ui.com/primitives/docs/overview/accessibility | Page names no specific browsers or screen readers. [verified] |
 | 3.4 | `@radix-ui/react-dialog` version 1.3.1 | CONFIRMED | https://registry.npmjs.org/@radix-ui/react-dialog/latest | npm latest is 1.3.1. The Dialog docs page itself shows 1.2.0, so the docs page is behind the registry. |
-| 3.5 | Meta package `radix-ui` version 1.8.1 | UNVERIFIABLE | https://www.radix-ui.com/primitives/docs/overview/introduction | Introduction recommends the meta package but gives no version. Registry not queried for this package. |
+| 3.5 | Meta package `radix-ui` version 1.8.1 | VERIFIED: radix-ui 1.8.1 on npm (2026-10-12) | https://registry.npmjs.org/radix-ui | Introduction recommends the meta package. The Dialog docs page still prints "Version: 1.2.0" (docs lag npm). |
 | 3.6 | Monorepo: pnpm workspaces plus changesets | CONFIRMED (pnpm); changesets UNVERIFIABLE | https://github.com/radix-ui/primitives | Repo README says to install pnpm and run pnpm install. Changesets not mentioned on the fetched pages. |
 | 3.7 | Consumer install is `npm install radix-ui` | CONFIRMED | https://www.radix-ui.com/primitives/docs/overview/introduction | The intro recommends the radix-ui meta package and also per-package installs. Radix's own README gives only the dev setup. |
 | 3.8 | Import line `import { Dialog } from "radix-ui"` | CONFIRMED | https://www.radix-ui.com/primitives/docs/components/dialog | Same import line on the Dialog page. |
@@ -28,7 +28,7 @@ Note on the docs site: the Radix pages fetched are the official docs at radix-ui
 | 3.12 | Behaviour lives in internal blocks (focus-scope, focus-guards, dismissable-layer, presence, portal, popper, roving-focus) | UNVERIFIABLE | n/a | The docs do not name these internals. Local-only. |
 | 3.13 | Unstyled by design: no default CSS; consumer supplies styling | CONFIRMED | https://www.radix-ui.com/primitives/docs/overview/introduction ; https://www.radix-ui.com/primitives/docs/guides/styling | Intro says components ship without styles. Styling guide says primitives have no functional or presentation styles, e.g. Dialog Overlay does not cover the viewport by default. |
 | 3.14 | MIT license | CONFIRMED | https://github.com/radix-ui/primitives | Repo page says MIT. |
-| 3.15 | Copyright line "(c) 2022 WorkOS" in LICENSE | UNVERIFIABLE (exact line) | https://github.com/radix-ui/primitives | Repo page shows "WorkOS, 2022 to present". The LICENSE file itself was not fetched. |
+| 3.15 | Copyright line "(c) 2022 WorkOS" in LICENSE | VERIFIED | https://raw.githubusercontent.com/radix-ui/primitives/main/LICENSE | "Copyright (c) 2022 WorkOS"; MIT. |
 | 3.16 | Dialog: Portal wraps Overlay and Content; Overlay is a sibling of Content | CONFIRMED | https://www.radix-ui.com/primitives/docs/components/dialog | Page describes Portal wrapping both, and Overlay as a sibling of Content. |
 | 3.17 | Structure: `packages/react` (one package per component), `packages/core`, `internal/`, `apps/`, `e2e/` | UNVERIFIABLE online | n/a | Local-only facts about the clone. |
 | 3.18 | Public component list (32 packages) | UNVERIFIABLE | https://www.radix-ui.com/primitives/docs/overview/introduction | Introduction does not list components. Directory names not checked online. The docs add a Form and a Visually Hidden utility; the KB already lists them. |
@@ -62,6 +62,12 @@ Note on the docs site: the Radix pages fetched are the official docs at radix-ui
 
 ---
 
+## Maintenance (added 2026-11-12)
+
+No official ownership or maintenance statement; docs say "Made by WorkOS". The releases page lists activity through 2026-07-20 (React 19/19.2 fixes) while npm shows 2026-10-12 publishes (radix-ui 1.8.1), so the releases page lags. Community concern articles exist (dev.to, Jun 2025) but are opinion. The unified `radix-ui` package is what shadcn imports (`pnpm dlx shadcn@latest migrate radix`, Feb 2026) [verified https://registry.npmjs.org/radix-ui ; https://ui.shadcn.com/docs/changelog/2026-02-radix-ui].
+
+---
+
 ## Missed guidelines
 
 Official guidance that `ui-core.md` does not record. Each has a URL fetched this run.
@@ -73,7 +79,7 @@ Official guidance that `ui-core.md` does not record. Each has a URL fetched this
 5. asChild: nesting is supported, e.g. a tooltip trigger wrapping a dialog trigger wrapping a custom button. Source: https://www.radix-ui.com/primitives/docs/guides/composition
 6. Animation: keep an element mounted during its exit by using the data-state attribute and CSS keyframes; forceMount hands mount control to a JavaScript library. Source: https://www.radix-ui.com/primitives/docs/guides/animation
 7. Animation: the JS-library example uses forceMount with asChild so the library decides when Overlay and Content appear and disappear. Source: https://www.radix-ui.com/primitives/docs/guides/animation
-8. Dialog: the Title is the accessible title announced on open; hide it visually with Visually Hidden rather than removing it. Source: https://www.radix-ui.com/primitives/docs/components/dialog
+8. Dialog: the Title is the accessible title announced on open; hide it visually with Visually Hidden rather than removing it. Title is not merely "recommended": Radix Dialog 1.1.0 logs a console error if Title is missing and a warning if Description is missing (release 2024-06-19); hide with `<VisuallyHidden asChild>`, drop the description with `aria-describedby={undefined}`. Base UI only "advises" explicit title and description [verified radix releases and dialog pages, base-ui.com/react/components/dialog]. Source: https://www.radix-ui.com/primitives/docs/components/dialog
 9. Dialog: Description is optional; to remove it, drop the element and pass aria-describedby set to undefined on Content. Source: https://www.radix-ui.com/primitives/docs/components/dialog
 10. Dialog: Escape closes the dialog and returns focus to the Trigger; focus is trapped automatically in a modal dialog. Source: https://www.radix-ui.com/primitives/docs/components/dialog
 11. Popover: Content accepts onOpenAutoFocus and onCloseAutoFocus; the Anchor part is optional. Source: https://www.radix-ui.com/primitives/docs/components/popover
@@ -111,3 +117,5 @@ Items are listed only when fetched or seen in a search result this run.
 | 11 | Form | https://www.radix-ui.com/primitives/docs/components/form | Component docs | Form validation primitive. Seen in search results; not fetched. |
 | 12 | radix-ui/primitives (GitHub) | https://github.com/radix-ui/primitives | Repository | Source, MIT license, pnpm dev setup; the repo page shows about 19.2k stars at fetch time. [verified] |
 | 13 | Radix Primitives home | https://www.radix-ui.com/primitives | Landing page | Entry point to the docs. Seen in search results; not fetched. |
+
+_Validated 2026-11-12 against primary sources; see ../../validation-reports/._

@@ -67,13 +67,13 @@ Design templates notable: `web-prototype`, `saas-landing`, `dashboard`, `mobile-
 1. Keep neutrals at roughly 70-90% of pixels, one accent at 5-10%, and semantic colors under 5%. [verified] craft/color.md "Palette structure"
 2. Cap visible accent use at two per screen (for example one eyebrow plus one primary CTA). Links and focus rings count as accent. [verified] craft/color.md "Accent discipline"
 3. Name color tokens by purpose (`--accent`, `--success`), never by hue. [verified] craft/color.md "Semantic color naming"
-4. Meet contrast floors: 4.5:1 for body text, 3:1 for large text and UI components. [verified] craft/color.md "Contrast minimums"
+4. Meet contrast floors: 4.5:1 for body text, 3:1 for large text (18pt, or 14pt bold, about 24px / 18.5px) and UI components; the repo's color.md wrongly gives these in px. [verified] craft/color.md "Contrast minimums"
 5. Use a multiplicative type scale (1.2 or 1.25) and cap a single artifact at 6-8 sizes. [verified] craft/typography.md "Type scale"
 6. For CJK text, raise line-height to about 1.3-1.4 on display headings and 1.7-1.8 on body, and set letter-spacing to 0. [verified] craft/typography.md "CJK overrides"
 7. Every surface that loads data needs five states: loading, empty, error, populated, and edge (long strings, huge row counts, missing optional fields). [verified] craft/state-coverage.md
-8. Validate form fields on blur, not on the first keystroke. [verified] craft/state-coverage.md "Form-specific states"
+8. Validate form fields on blur, not on the first keystroke (Baymard; GOV.UK instead validates on submit; pick one per project). [verified] craft/state-coverage.md "Form-specific states"
 9. Keep state-confirmation motion near 150 ms, keep non-navigation micro-interactions under 500 ms, and drop axis motion (translate, scale, rotate) under reduced-motion. [verified] craft/animation-discipline.md "Duration thresholds", "Reduced motion"
-10. Make touch targets at least 24x24 CSS px (AA), with 44x44 as the craft target. [verified] craft/accessibility-baseline.md "Touch targets"
+10. Make touch targets at least 24x24 CSS px (AA), with 44x44 as the craft target (44x44 is WCAG 2.5.5 AAA). [verified] craft/accessibility-baseline.md "Touch targets"
 11. Never remove focus outlines outright; style `:focus-visible` instead. [verified] craft/accessibility-baseline.md "Focus visibility"
 12. Avoid AI-slop tells the linter blocks: default Tailwind indigo accents, two-stop gradient heroes, emoji as feature icons, invented metrics, lorem-ipsum filler. [verified] craft/anti-ai-slop.md "The seven cardinal sins"
 
@@ -131,3 +131,5 @@ To opt a skill into craft sections, list slugs in `od.craft.requires` in its fro
 - Package purposes beyond the first five were inferred from names only.
 - Grouping of skills by prefix is my inference; no source file defines these groups.
 - Line count is kept under 200 for this file.
+
+_Validated 2026-11-12 against primary sources; see ../validation-reports/._

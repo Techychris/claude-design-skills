@@ -54,3 +54,5 @@ The provenance subagent said the `animation-principles` skill credited to Dylan 
 - Archived status of all repos, and GitHub Actions run results.
 - Whether the shadcn CLI behaves as documented (it was not run).
 - Vaul's site docs, and the other claims marked UNVERIFIABLE in the table above.
+
+_Validated 2026-11-12 against primary sources; see ../validation-reports/._

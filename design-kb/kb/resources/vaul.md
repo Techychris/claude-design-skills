@@ -3,7 +3,7 @@
 Run date: 2026-11-12. Scope: verify section 2 (vaul) of `kb/ui-components.md` against official docs and repo sources, and list resources.
 
 Method and limits:
-- Official docs site vaul.emilkowal.ski could NOT be fetched: the fetch tool reported robots_disallowed. Vaul's own docs are therefore UNVERIFIABLE from the docs site; the verdicts below rely on the repo, source and npm page.
+- Official docs site vaul.emilkowal.ski could NOT be read by the fetch tool (robots_disallowed). Update 2026-11-12: curl returns HTTP 200, but the page is client-rendered (text: "Drawer component for React. Open Drawer GitHub Documentation"), so docs text is not extractable. Vaul's own docs are therefore UNVERIFIABLE from the docs site; the verdicts below rely on the repo, source and npm page.
 - The repo README is only an unmaintained notice; it has no usage docs.
 - Source read from raw.githubusercontent.com (main branch): package.json, src/index.tsx. Line numbers come from a model-summarised fetch, so treat them as approximate.
 - The npm page was fetched but truncated before the full usage example.
@@ -26,7 +26,7 @@ Method and limits:
 | 10 | Ships style.css | CONFIRMED | package.json (files list includes style.css); src/index.tsx imports './style.css' | [verified] |
 | 11 | Component inventory: Root, NestedRoot, Trigger, Portal, Overlay, Content, Handle, Close, Title, Description | CONFIRMED in part | src/index.tsx (NestedRoot, Handle, Title and Description re-exported from Radix) | Trigger, Portal, Overlay, Content and Close were not read in this run. |
 | 12 | License MIT | CONFIRMED | package.json (license MIT); https://github.com/emilkowalski/vaul | [verified] |
-| 13 | Maintenance: unmaintained, no near-term work planned | CONFIRMED | https://raw.githubusercontent.com/emilkowalski/vaul/main/README.md (notice); https://github.com/emilkowalski/vaul (repo shows the same notice, author says it is a hobby project) | Notice says the author may return someday. KB wording is close enough. |
+| 13 | Maintenance: unmaintained, no near-term work planned (last npm publish 2024-12-14, vaul 1.1.2; the Oct 2025 commit is README-only) | CONFIRMED | https://raw.githubusercontent.com/emilkowalski/vaul/main/README.md (notice); https://github.com/emilkowalski/vaul (repo shows the same notice, author says it is a hobby project) | Notice says the author may return someday. KB wording is close enough. |
 | 14 | Pin the version if you depend on it | INFERRED | General advice; not stated in the repo | Keep as an inference. |
 | 15 | Passing `snapPoints` requires `fadeFromIndex` in the types | CONTRADICTED | src/index.tsx (DialogProps is an intersection with a union. WithFadeFromProps requires both snapPoints and fadeFromIndex. WithoutFadeFromProps makes snapPoints optional and fadeFromIndex typed never. Passing snapPoints alone type-checks.) | KB is wrong: fadeFromIndex is required only in the fade variant. The runtime default is the last snap point index. [verified; type reading from a summarised fetch, confirm with tsc if it matters] |
 | 16 | `handleOnly` limits dragging to the handle | CONFIRMED | src/index.tsx (only Drawer.Handle starts a drag when handleOnly is true) | KB marked behaviour inferred; now verified. |
@@ -52,7 +52,7 @@ Method and limits:
 8. shouldScaleBackground is off by default. When it is on, the page element marked as the drawer wrapper is scaled during drag. Mark your page wrapper, or the effect does nothing. [verified: src/index.tsx; the marking requirement is inferred from the selector]
 9. With handleOnly, only the Handle starts drags, so drag-to-dismiss needs a visible handle. [verified: src/index.tsx]
 10. Nested drawers need NestedRoot placed inside a parent drawer, or it throws. [verified: src/index.tsx]
-11. The repo is unmaintained. Pin the exact version, watch for React version gaps (peer range stops at 19), and plan a replacement or fork before you depend on it for new work. [verified: README notice; peer range from package.json; plan is inferred]
+11. The repo is unmaintained. Pin the exact version, watch for React version gaps (peer range stops at 19), and plan a replacement or fork before you depend on it for new work. [verified: README notice; peer range from package.json; plan is inferred]. shadcn Drawer now uses Base UI instead of Vaul (migration: `npm install vaul` -> `npm install @base-ui/react`); Base UI ships its own Drawer since v1.3.0 [verified https://ui.shadcn.com/docs/components/drawer ; https://base-ui.com/llms.txt].
 12. Radix Dialog is a runtime dependency. Keep Radix and Vaul versions in step during upgrades. [verified: package.json; advice inferred]
 
 ## Resources
@@ -62,8 +62,10 @@ Method and limits:
 3. **Vaul src/index.tsx** - https://raw.githubusercontent.com/emilkowalski/vaul/main/src/index.tsx - source - Handle, NestedRoot, snapPoints and fadeFromIndex types, direction, background scaling, handleOnly.
 4. **Vaul package.json** - https://raw.githubusercontent.com/emilkowalski/vaul/main/package.json - manifest - Version 1.1.2, exports, files (including style.css), peer and runtime dependency ranges.
 5. **Vaul on npm** - https://www.npmjs.com/package/vaul - registry page - Install line and the author's one-line description (unstyled drawer, Dialog replacement). Usage example is truncated in the fetch.
-6. **Vaul docs site** - https://vaul.emilkowal.ski/ - official docs - Not fetchable from here (robots disallowed). Open it in a browser to check snap points, nested and Title examples.
+6. **Vaul docs site** - https://vaul.emilkowal.ski/ - official docs - Client-rendered and WebFetch-blocked (curl returns 200, no extractable text). Open it in a browser to check snap points, nested and Title examples.
 7. **Radix Dialog docs (mintlify mirror)** - https://www.mintlify.com/radix-ui/primitives/components/dialog - third-party mirror of Radix docs (fetched) - Says Title is required for accessibility. Check radix-ui.com for the authoritative version.
 8. **Radix primitives philosophy (mintlify mirror)** - https://www.mintlify.com/radix-ui/primitives/concepts/philosophy - third-party mirror (seen in search, not fetched) - Background on the primitive layer Vaul builds on.
 9. **Community fork of vaul** - https://github.com/ddaoxuan/vaul - community repo (seen in search, not fetched) - Possible maintained alternative. Not endorsed: check its activity, license and relationship to upstream before use.
 10. **vaul-svelte** - https://github.com/neimadt/vaul-svelte - community port (seen in search, not fetched) - Example of porting the drawer pattern to another framework. Not endorsed; check license and activity.
+
+_Validated 2026-11-12 against primary sources; see ../../validation-reports/._
