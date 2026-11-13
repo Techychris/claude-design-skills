@@ -43,6 +43,31 @@ After the fix, at 390, 466 and 599 px every action button measured the same widt
 - **Looping loaders obey `prefers-reduced-motion`** [convention; SC 2.3.3 is AAA and covers interaction-triggered motion].
 - **Measure, do not eyeball** [convention]: at 320, 390 and 466 px list every button's width, height and font size, and compare `scrollWidth` with the viewport.
 
+## Slop that survived the build (found 2026-11-13, same screen)
+
+The screen was built with `interface-design`, which had no rule against these, and `unslop` had not been run on it. An unslop polish pass removed them; the dialog, email error and four table states still worked afterwards, and buttons stayed uniform at 466 px [verified by measurement].
+
+| Sign | Where | Fix |
+|---|---|---|
+| Status pills | "Paid" and "Refunded" as tinted, fully rounded badges | Plain text with a small status dot |
+| Decorative tile | Blue italic 700-weight "VISA" tile beside "Visa ending 4417" | Removed; the text already says it |
+| Uppercase tracked labels | Eyebrow, plan label, table headers (`letter-spacing: .06em`) | Sentence case, zero tracking |
+| Heavy weights | 600 on headings, buttons and links; 700 on the tile | 500; hierarchy from size and colour |
+| Trailing periods | One-sentence captions and the error message | Removed |
+| Colour literals | `#fff` and three other hex values outside the token block | Tokens |
+| Loader ignores reduced motion | Skeleton pulse | Stops under `prefers-reduced-motion` |
+
+Rules, all `[convention]` (from the unslop skill by Damir Sokolovsky, @heydamir, github.com/heydamir/unslop, CC BY 4.0; no research base was checked for them):
+- Status, counts and plan names are quiet text, not pills. A pill shape stays only where the control is one by nature, such as a switch.
+- No uppercase tracked labels; sentence case everywhere.
+- No tile, chip or tag that repeats the text beside it.
+- Weights 400 and 500, 600 for rare emphasis; no italic for emphasis.
+- Labels, buttons, captions and one-sentence messages end without a period.
+- Every colour is a token.
+- No looping motion on things that are not live.
+
+Process lesson: a build skill and a de-slop skill are separate steps. Passing one says nothing about the other, so a build is not finished until the slop search has run (uppercase, tracked labels, pill radii, 700+ weights, italic, colour literals, infinite animations).
+
 ## Lesson about the checks
 
 The screen scored 80.0 against a threshold of 80 in a rubric review, and passed its mechanical gates, before the uneven buttons were reported. Both the gates and the rubric tested minimum size and never compared buttons with each other, and neither tested 320 or 466 px. A check for a minimum does not catch inconsistency. The score was not re-run after the fix.
