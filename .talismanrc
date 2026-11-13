@@ -1,0 +1,11 @@
+fileignoreconfig:
+- filename: design-pipeline/SKILL.md
+  checksum: 3cf8b7814c6d04f486abd40921a2a0f1ec99d10fbef4e12498a968171c4a4e95
+  ignore_detectors: []
+- filename: design-pipeline/prompts/builder.md
+  checksum: f3aa8cb672869fcecc7b1771a66a5b27035ad9c7b6fd97149ee0106a9150ef68
+  ignore_detectors: []
+- filename: design-pipeline/probe.js
+  checksum: a46e8eebc534ffdff386fc94eba204dca774d35c1640a9fb0b40810c7c77ab2d
+  ignore_detectors: []
+version: "1.0"
