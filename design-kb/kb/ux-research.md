@@ -1,0 +1,209 @@
+# UX and design skills: knowledge base
+
+> Online validation 2026-11-12: corrections from `kb/validation.md` are applied below.
+
+Built 2026-11-12 from two local clones, read-only. Tags: [verified] = read in the file or checked with a command; [inferred] = my reading, not stated in the repo.
+
+## 1. owl-listener/designer-skills (/home/claude/owl-listener/designer-skills)
+
+- **Purpose:** Design-practice collection for Claude Code and Gemini CLI, and the front door to a five-collection marketplace. Only the design-practice part is cloned: 9 plugins, 111 skills, 34 commands. [verified: README.md]
+- **Structure:** `<plugin>/skills/<name>/SKILL.md`, `<plugin>/commands/*.md`, `<plugin>/.claude-plugin/plugin.json`. Root: `.claude-plugin/marketplace.json` (name designer-skills, version 2.0.0), `INDEX.md` (skills grouped by situation, carrying a generated-index marker), `scripts/` (generate-index.py, lint-frontmatter.py, build-gemini.sh and others), `.gemini/extensions/<plugin>/GEMINI.md`, `.github/workflows/` (lint.yml, release.yml). Install: `/plugin marketplace add Owl-Listener/designer-skills`. [verified]
+- **Inventory**
+  - **design-research** (14 skills) · commands: discover, interview, synthesize, test-plan
+    - `affinity-diagram`: cluster many qualitative points into themes across sources
+    - `behavioural-analytics`: read funnels and event data, separating design problems from tracking artefacts
+    - `card-sort-analysis`: turn open or closed sort results into groupings and labels
+    - `diary-study-plan`: design diary studies that run over days or weeks
+    - `empathy-map`: Says, Thinks, Does, Feels map for one user or segment
+    - `interview-script`: structured guide with warm-up, core questions, wrap-up
+    - `jobs-to-be-done`: map functional, emotional and social jobs with outcome expectations
+    - `journey-map`: one persona's stages, touchpoints, emotions and pain points
+    - `qual-quant-triangulation`: reconcile what the numbers show with what users say
+    - `research-repository`: make findings findable and reusable across teams
+    - `summarize-interview`: one transcript into themes, quotes and actions
+    - `survey-design`: unbiased instruments covering wording, scales and sampling
+    - `usability-test-plan`: study-level design, from research questions to facilitation guide
+    - `user-persona`: research-grounded personas with goals and behaviours
+  - **design-systems** (11 skills) · commands: audit-system, create-component, tokenize
+    - `accessibility-audit`: WCAG findings with severity and remediation (26-line file)
+    - `component-spec`: one component's props, states, variants and usage rules
+    - `design-system-governance`: contribution model, versioning, deprecation
+    - `design-token`: define and organise colour, spacing, type and elevation tokens
+    - `documentation-template`: reusable scaffold for components, patterns, guidelines
+    - `icon-system`: grid, sizing, stroke weight, naming
+    - `localization-design`: multiple languages, RTL mirroring, locale formats
+    - `motion-system`: motion tokens for duration, easing and reduced motion
+    - `naming-convention`: naming rules for components, tokens and layers
+    - `pattern-library`: problem-and-solution entries for recurring patterns
+    - `theming-system`: brand variants, dark mode and high contrast through token layers
+  - **ux-strategy** (12 skills) · commands: benchmark, frame-problem, strategize
+    - `business-design`: argue design in commercial terms
+    - `competitive-analysis`: compare patterns, features and gaps across rivals
+    - `content-strategy`: what content a product needs, its structure and owner
+    - `design-brief`: project brief at kickoff (problem, constraints, success criteria)
+    - `design-principles`: actionable principles that settle recurring trade-offs
+    - `experience-map`: touchpoints and channels across more than one product
+    - `information-architecture`: content structure, labelling and navigation model
+    - `metrics-definition`: choose UX metrics and KPIs before data is collected
+    - `north-star-vision`: long-horizon product vision
+    - `opportunity-framework`: score and prioritise opportunities by impact and effort
+    - `service-blueprint`: frontstage, backstage and supporting systems
+    - `stakeholder-alignment`: responsibility matrices, decision rights, comms plans
+  - **ui-design** (19 skills) · commands: color-palette, design-screen, platform-audit, responsive-audit, type-system
+    - `aesthetic-usability`: polish makes interfaces feel more usable
+    - `color-system`: tonal scales, semantic roles, contrast compliance
+    - `dark-mode-design`: adapt an existing light palette to dark
+    - `data-visualization`: chart selection and encodings
+    - `illustration-style`: style guide for illustration
+    - `law-of-closure`: eye completes implied shapes from partial forms
+    - `law-of-common-region`: shared container groups elements regardless of spacing
+    - `law-of-continuity`: eye follows alignment and unbroken paths
+    - `law-of-figure-ground`: which layer is foreground and actionable
+    - `law-of-proximity`: spacing alone groups elements
+    - `law-of-similarity`: shared colour, shape or size signals category
+    - `layout-grid`: columns, gutters, margins, breakpoint behaviour
+    - `platform-conventions`: iOS and Android conventions and where to diverge
+    - `readable-measure`: line length for comfortable reading
+    - `responsive-design`: one design across viewports and input methods
+    - `spacing-system`: spacing scale from a base unit
+    - `typography-scale`: modular type scale with size, weight, line height
+    - `visual-hierarchy`: order of attention through size, weight, colour, spacing
+    - `von-restorff-effect`: the element that differs is the one remembered
+  - **interaction-design** (22 skills) · commands: design-form, design-interaction, design-onboarding, error-flow, map-states
+    - `animation-principles`: easing, staging, follow-through for one motion
+    - `conversational-ux`: voice and dialog flows, error recovery, persona
+    - `doherty-threshold`: keep system response under 400 ms [convention: the source is a non-peer-reviewed IBM report arguing productivity rises sharply below 1 s; 400 ms is a later popularisation]
+    - `error-handling-ux`: product-wide error prevention, detection, recovery
+    - `feedback-patterns`: confirmations and status updates
+    - `fitts-law`: target size and distance for controls, especially touch
+    - `form-design`: field order, grouping, validation, completion
+    - `gesture-patterns`: swipe, drag, long-press and discoverability
+    - `hicks-law`: decision time grows with the number of choices
+    - `interfaces-that-feel`: emotional lens for UI that tests fine but lands cold
+    - `jakobs-law`: users expect products to work like ones they already use
+    - `loading-states`: spinners, skeletons, optimistic updates
+    - `micro-interaction-spec`: one micro-interaction in full, for engineering
+    - `millers-law`: Miller (1956) said 7 plus or minus 2; Cowan (2001) argues about 4 chunks; treat both as contested, not as a layout cap
+    - `navigation-patterns`: tabs, drawer, hierarchy or hub
+    - `onboarding-design`: first-run activation path and time to first value
+    - `peak-end-rule`: a flow is remembered by its peak and its end
+    - `search-ux`: query input, zero results, refinement, result presentation
+    - `serial-position-effect`: first and last items are recalled best
+    - `state-machine`: explicit states, events and transitions
+    - `teslers-law`: irreducible complexity must be absorbed by product or user
+    - `zeigarnik-effect`: incomplete tasks stay active; progress and drafts
+  - **prototyping-testing** (10 skills) · commands: evaluate, experiment, explore-options, prototype-plan, test-plan
+    - `a-b-test-design`: hypothesis, variants, primary metric, sample size
+    - `accessibility-test-plan`: testing with real assistive-technology users
+    - `click-test-plan`: first-click and click tests for findability
+    - `concept-selection`: choose between concepts on criteria fixed in advance
+    - `heuristic-evaluation`: expert review against Nielsen heuristics, with severity
+    - `parallel-concepts`: several genuinely different solutions built at once
+    - `prototype-strategy`: fidelity and method matched to the decision
+    - `test-scenario`: realistic task scenarios with success criteria
+    - `user-flow-diagram`: screen-level paths, decisions and branches
+    - `wireframe-spec`: layout priority, placement and annotation
+  - **design-ops** (9 skills) · commands: handoff, plan-sprint, setup-workflow
+    - `design-critique`: facilitate a structured team critique
+    - `design-debt-audit`: inventory accumulated inconsistencies
+    - `design-impact-reporting`: report design's contribution in stakeholder terms
+    - `design-qa-checklist`: verify a build matches the design
+    - `design-review-process`: review gates, criteria and approval flow
+    - `design-sprint-plan`: plan and run a design sprint
+    - `handoff-spec`: implementation handoff with measurements, states, edge cases
+    - `team-workflow`: operating rhythm, rituals and tooling
+    - `version-control-strategy`: branching, naming and release for design files
+  - **designer-toolkit** (7 skills) · commands: build-presentation, start-here, write-case-study, write-rationale
+    - `case-study`: portfolio narrative with process evidence and outcomes
+    - `design-negotiation`: advocate for quality, scope and timeline
+    - `design-rationale`: written reasons linking decisions to needs and principles
+    - `design-system-adoption`: drive uptake when teams ignore the system
+    - `design-token-audit`: coverage, drift and hard-coded values
+    - `presentation-deck`: structure a deck for one audience and decision
+    - `ux-writing`: interface copy for microcopy, errors, empty states, CTAs
+  - **visual-critique** (7 skills) · commands: critique-screen, critique-ux
+    - `critique-affordance`: what looks clickable, state visibility, CTA clarity
+    - `critique-brand-consistency`: screen against mood, voice and token files
+    - `critique-color`: contrast ratios, palette coherence, semantic colour
+    - `critique-composition`: balance, whitespace, rhythm, grouping
+    - `critique-information-density`: cognitive load and progressive disclosure
+    - `critique-typography`: scale usage, readability, token compliance
+    - `critique-visual-hierarchy`: entry point, eye flow, emphasis
+- **Rules** (four per skill, paraphrased)
+  - **heuristic-evaluation** (`prototyping-testing/skills/heuristic-evaluation/SKILL.md`)
+    - Use three to five evaluators, each working alone before findings are compared. [verified] Hertzum and Jacobsen (2001, https://doi.org/10.1207/s15327590ijhc1304_05) found two evaluators agree only 5% to 65% on average, so treat the number as a planning heuristic.
+    - Score each issue 0 to 4; a 4 ("usability catastrophe") is imperative to fix before release, per Nielsen's scale. [verified: nngroup.com, 2026-11-12]
+    - Make two passes: a first orientation pass with no judging, then a second pass checking each heuristic (NN/g). [verified]
+    - Pair the expert review with real-user testing rather than replacing it. (unsourced)
+  - **accessibility-audit** (`design-systems/skills/accessibility-audit/SKILL.md`)
+    - Organise findings around the four POUR principles and rate them Critical, Major, Minor or Enhancement. [verified]
+    - Record each issue with its WCAG criterion, impact, remediation steps and a code example. [verified]
+    - Test with real assistive technology, and check static and interactive states across devices. [verified]
+    - The file gives no target conformance level and no test procedure; use the cuellarfr audit for those. [inferred]
+  - **wireframe-spec** (`prototyping-testing/skills/wireframe-spec/SKILL.md`)
+    - Keep wireframes in grey, black and white, and leave colour decisions for later. [verified]
+    - Mark images with an X-box and text blocks with wavy lines. [verified]
+    - Number content priority so the team sees what appears first. [verified]
+    - Draw empty, loading, populated and error states, plus each responsive breakpoint. [verified]
+  - **service-blueprint** (`ux-strategy/skills/service-blueprint/SKILL.md`)
+    - Blueprint the current state first and the future state second. [verified]
+    - Scope to one scenario, such as first-time onboarding, not the whole product. [verified]
+    - Validate with operations, engineering and support, who usually spot missing backstage steps. [verified]
+    - Read gaps between lanes as places where a frontstage promise outruns what backstage can deliver. [verified]
+  - **design-critique** (`design-ops/skills/design-critique/SKILL.md`)
+    - The designer shares goals, constraints, audience and stage before any feedback. [verified]
+    - Run the session in five steps: present, clarify, feedback rounds, discuss, capture. [verified]
+    - Phrase feedback as an observation, a question, a suggestion, or an opinion with its reason. [verified]
+    - Keep exploration and refinement critiques separate; give each action an owner and a deadline. [verified]
+- **License:** MIT, Copyright (c) 2026 MC Dean (LICENSE). The marketplace owner carries the same name. [verified]
+- **Sample-size rules (NN/g, not in these skills)**: qualitative usability tests 5 users; quantitative at least 20 (not the often-repeated 40); card sorting 15 per group; eyetracking 39. SUS average is 68 (Sauro, about 500 studies; peer-reviewed anchor: Lewis and Sauro 2018, J. Usability Studies 13(3)). A/B tests: fix sample size in advance, do not peek, 95% confidence is conventional. pm-skills' phase skills use the repo's own "Triple Diamond"; the Double Diamond is Design Council (2004). Single-evaluator severity ratings are unreliable; NN/g suggests the mean of about 3 raters.
+- **Gotchas**
+  - The README claims 273 skills and 76 commands across 33 plugins in five collections. Counted at current upstream HEADs the five collections hold 275 skills (111 here, 164 elsewhere) and 76 commands (34 here, 42 elsewhere); the 33 plugins match. The other four collections live in separate repos, pulled in by marketplace.json as git-subdir sources. [verified online 2026-11-12]
+  - The brief said 10 groups; the clone has 9 plugins. [verified]
+  - CHANGELOG.md is stale: its 1.0.0 entry lists 97 skills and 30 commands, and its newest entry is 1.0.1. marketplace.json says 2.0.0, and visual-critique is 1.1.0 while the other plugins are 1.0.0. [verified]
+  - Descriptions refer to other skills by bare name plus plugin in brackets; those references fail when that plugin is not installed. [inferred]
+  - Several names match cuellarfr skill names (accessibility-audit, design-critique, ux-writing, design-ops, design-systems, interaction-design, ux-strategy). Installing both packs may cause name collisions. [inferred]
+  - INDEX.md is generated; edit it through the generator, not by hand. [inferred]
+
+## 2. cuellarfr/design-skills (/home/claude/cuellarfr/design-skills)
+
+- **Purpose:** Ten long-form UX skills for Claude Code and other agents, each grounded in named frameworks such as Nielsen's heuristics, WCAG 2.2 and the Laws of UX. Content-only repo: no build, no tests. [verified: CLAUDE.md, README.md]
+- **Structure:** `skills/<name>/SKILL.md` (frontmatter name matches the directory), with `references/`, `templates/` and `examples/` beneath. Totals: 55 reference files, 28 templates, 18 examples. Root: `.claude-plugin/plugin.json` and `marketplace.json` (one plugin, design-skills, version 1.0.0 in both), `index.html` (landing page), `CLAUDE.md`. Install: `npx skills add cuellarfr/design-skills`, or `/plugin marketplace add cuellarfr/design-skills`. [verified]
+- **Inventory**
+  - `accessibility-audit`: WCAG 2.2 audits at A, AA and AAA, with severity, code fixes and reports
+  - `design-critique`: heuristic, UX-law and information-architecture critique, plus structured critiques
+  - `design-elevation`: lifts functional visual outputs to polished ones, using Tailwind tokens and Tufte-style data viz
+  - `design-ops`: sprints, handoffs, team rituals, documentation and design QA
+  - `design-systems`: tokens, component specs, pattern libraries, governance
+  - `interaction-design`: microinteractions, state machines, gestures, error prevention
+  - `journey-mapping`: journey maps, service blueprints, experience maps, empathy maps
+  - `ux-research`: plan, run and analyse research, including interviews, usability tests and synthesis
+  - `ux-strategy`: competitive analysis, opportunity trees, Jobs to Be Done, metrics, value propositions
+  - `ux-writing`: microcopy, error messages, empty states, CTAs
+- **Rules** (paraphrased)
+  - **design-critique** (`skills/design-critique/SKILL.md`)
+    - Establish who the user is, what they are trying to do, where in the journey this screen sits, and the constraints, before judging. [verified]
+    - Do a five-second first-impression scan; if the primary action is unclear, the hierarchy has a problem. [verified]
+    - Score heuristic violations 0 to 4; a 4 is a usability catastrophe: imperative to fix before release (Nielsen). [verified]
+    - Phrase each point as the problem, the principle it breaks, why it matters to the user, and a specific fix; when unsure, recommend testing. [verified]
+  - **journey-mapping** (`skills/journey-mapping/SKILL.md`)
+    - Keep a journey map to three to seven phases; ten or more becomes unreadable (the skill's rule of thumb; NN/g sets no number; unsourced). [verified]
+    - Map one persona per journey, and compare maps rather than averaging personas. [verified]
+    - Interview enough users to ground each phase (the skill says five; NN/g gives no minimum; unsourced), and map the current state before designing the future one. [verified]
+    - Always include a feeling row, since leaving it out drops the most actionable layer. [verified]
+  - **accessibility-audit** (`skills/accessibility-audit/SKILL.md`)
+    - Target WCAG 2.2 AA by default, and apply AAA criteria where practical for contrast, text and target size. AA contrast thresholds: 4.5:1 normal text, 3:1 large text (18pt, or 14pt bold) and 3:1 non-text (SC 1.4.3, 1.4.11). [verified: w3.org]
+    - Run five layers: automated scan, keyboard, screen reader, visual and content, flow and context. [verified]
+    - Fix Critical or High issues at Level A or AA before the next release. [verified]
+    - Start with the ten most common failures, led by low text contrast. The file cites WebAIM Million. Its lead item, low text contrast, is also first in WebAIM's 2026 report (83.9% of home pages); I did not check the other frequency figures. [verified 2026-11-12]
+- **License:** MIT, Copyright (c) 2026 Carlos C. (LICENSE). The plugin manifest names the author as Carlos Cuellar. [verified]
+- **Gotchas**
+  - Five of ten SKILL.md files exceed the 200 to 350 line target in CLAUDE.md and README: design-critique 532, ux-writing 476, ux-strategy 432, journey-mapping 431, interaction-design 352. [verified: wc -l]
+  - Descriptions are long, multi-sentence blocks. Agents use them to decide when to load a skill, so their length matters. [inferred]
+  - Name overlaps with designer-skills are listed under that repo's gotchas. [verified]
+
+## Not read
+
+- designer-skills: CONTRIBUTING.md, README.md past line 150, INDEX.md past line 120, the .github workflows, script bodies, all command files, and the bodies of 106 of 111 SKILL.md files (frontmatter read for all). cuellarfr: index.html, references, templates and examples; the bodies of seven of ten skills were not read, and the other three were read only in part (frontmatter read for all).
+
+_Validated 2026-11-12 against primary sources; see ../validation-reports/._
