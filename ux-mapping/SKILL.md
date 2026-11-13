@@ -82,13 +82,13 @@ Quote marks are only for verbatim words, with a source, in a quote thought. Pain
 
 When a review or new evidence downgrades a claim, change it **everywhere it appears**: the pain, `disagreements`, `failures`, the summary box, the report-back. Search the map and the rendered text for the source ID and the key phrase before calling it done. A downgrade made in one place and missed in another is the commonest regression.
 
-No research at all: build in hypothesis mode (everything `assumed`), title it "Assumption map", and end with the 3 to 5 research questions that would most change it. A useful minimum to upgrade it: about 5 interviews about recent real occurrences, a pass through analytics or tickets, and a touchpoint inventory.
+No research at all: build in hypothesis mode (everything `assumed`), title it "Assumption map", and end with the 3 to 5 research questions that would most change it. A useful minimum to upgrade it: about 5 interviews about recent real occurrences (a rule of thumb; NN/g sets no minimum for journey maps), a pass through analytics or tickets, and a touchpoint inventory.
 
 ## 3. Build the journey map
 
 ### Stages
 
-3 to 7 stages. Name them in the actor's words for this scenario ("Realizes it's expired", "Waits without a usable passport"). Stock funnels (Awareness → Consideration → Purchase…) only when the scenario really is that funnel. For each stage record: **goal**, **trigger** (what moves them in), **exit** (what moves them out, including abandoning), and **duration** (minutes, days, weeks; note when perceived wait differs from actual).
+3 to 7 stages (a readability rule of thumb, not a research finding). Name them in the actor's words for this scenario ("Realizes it's expired", "Waits without a usable passport"). Stock funnels (Awareness → Consideration → Purchase…) only when the scenario really is that funnel. For each stage record: **goal**, **trigger** (what moves them in), **exit** (what moves them out, including abandoning), and **duration** (minutes, days, weeks; note when perceived wait differs from actual).
 
 ### Lanes
 

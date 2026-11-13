@@ -186,7 +186,7 @@ Use springs for gestures, interruptible motion, "alive" elements, and decorative
 
 ### 3.7 Accessibility (ships with every animation)
 
-- **`prefers-reduced-motion: reduce` means fewer and gentler animations, not zero.** Keep opacity and color fades that help comprehension. Remove translation, scale, auto-scroll, zoom and large rotation. **Parallax is the exception: turn it off entirely** (§6.1).
+- **`prefers-reduced-motion: reduce` means fewer and gentler animations, not zero.** This is how you meet WCAG 2.3.3 (Animation from Interactions, AAA): motion triggered by interaction can be disabled unless it is essential. That is standards guidance; no peer-reviewed study of vestibular-safe UI animation was found. Keep opacity and color fades that help comprehension. Remove translation, scale, auto-scroll, zoom and large rotation. **Parallax is the exception: turn it off entirely** (§6.1).
 - **Gate hover motion** with `@media (hover: hover) and (pointer: fine)`, because touch fires false hovers on tap.
 - **Auto-starting motion that lasts more than 5s needs a pause, stop or hide control** (WCAG 2.2.2). That includes any decorative repeating loop, whatever the length of one cycle. Loading indicators during a wait the user can't skip count as essential and are exempt. Never flash more than 3 times in any one second (2.3.1).
 - **Focus:** never animate the focus ring away. Move focus into a dialog only after it is interactable, not after the animation ends. Return focus on close.
