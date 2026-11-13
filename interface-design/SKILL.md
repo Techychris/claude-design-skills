@@ -215,19 +215,32 @@ A hundred small details compound into "feels great." These are the highest-lever
 - **Tabular numbers.** Any dynamic number (counters, prices, timers, table columns) gets `font-variant-numeric: tabular-nums` to prevent layout shift.
 - **Optical alignment.** When geometric centering looks off, fix it optically — icon-side padding ≈ text-side − 2px; nudge play triangles ~2px right.
 - **States are not optional.** Every interactive element needs default, hover, active, focus, disabled. Data needs loading, empty, error. Missing states feel broken — they're the fastest tell of an unfinished interface.
-- **Hit areas — 44×44px (WCAG), 40 at minimum.** If the visible control is smaller (a 20px checkbox), extend with a pseudo-element. Never let two hit areas overlap.
+- **Hit areas — 44×44px on touch (40 at minimum), never under 24×24 anywhere.** WCAG 2.2 requires 24×24 CSS px (SC 2.5.8, AA); 44×44 is its AAA level (SC 2.5.5) and Apple's 44pt default; Android uses 48dp. If the visible control is smaller (a 20px checkbox), extend with a pseudo-element. Never let two hit areas overlap.
 - **Shadows over borders for elevation.** For cards/buttons/containers that lift, prefer a layered transparent `box-shadow` (it adapts to any background); keep real borders for dividers and input outlines. Light-mode lift stacks three layers — a 1px ring + two soft depths, e.g. `0 0 0 1px rgba(0,0,0,.06), 0 1px 2px -1px rgba(0,0,0,.06), 0 2px 4px rgba(0,0,0,.04)`; dark mode collapses to a single ring `0 0 0 1px rgba(255,255,255,.08)` (depth shadows don't read on dark).
 - **Text wrapping.** `text-wrap: balance` on headings; `text-wrap: pretty` on body/captions to kill orphans.
 - **Font smoothing.** `-webkit-font-smoothing: antialiased` on the root (macOS renders heavy otherwise).
 - **Image outlines.** 1px inset outline, pure `rgba(0,0,0,0.1)` light / `rgba(255,255,255,0.1)` dark — never a tinted near-black/white (reads as dirt on the edge).
+
+## Narrow widths
+
+A screen that passes at 1440 can still be broken on a phone. These rules apply below the phone breakpoint (about 600px) and are checked at 320, 390 and 466px (466 is an estimate for a foldable's cover screen such as iPhone Duo; Apple has published pixels, not points).
+
+- **One button size per role.** When action buttons stack, every one is full width with the same height, text size and side inset. Fix the inset in one place: cards on the same screen share one padding value at this breakpoint, so a button in one card is never a few px narrower than its neighbour.
+- **Button groups are a grid, not a wrap.** A set of peer buttons (filters, segmented choices, demo controls) uses equal columns (`grid-template-columns: 1fr 1fr`), never content-sized buttons left to wrap into ragged widths.
+- **Secondary and destructive actions get the same box.** A destructive button differs by color, not by size or alignment. Inputs match the button width.
+- **Scope layout classes.** Never give a layout container the same class name as a component modifier (`.danger` on a section and `.btn.danger` on a button): the container's flex and padding rules leak onto the button. Scope container rules (`.card > .danger`) or name them apart.
+- **Reflow at 320px (WCAG 1.4.10, AA).** No horizontal scroll and nothing clipped at 320 CSS px. Grid columns use `minmax(0, 1fr)`; a data table that cannot shrink sits in its own `overflow-x: auto` region. Never hide the problem with `overflow-x: hidden` on `body`.
+- **Focus has a destination.** After any action that removes or replaces the focused control (confirming a dialog, Retry, deleting a row), move focus to a named element: the trigger, the section heading, or the status message. Focus must never fall to `body`.
+- **Errors are announced.** An inline validation error is tied to its field (`aria-describedby`) and announced through a live region when it appears, not only shown.
+- **Looping loaders obey reduced motion.** Skeleton pulses and spinners belong in the `prefers-reduced-motion` block too: drop the pulse and keep a static placeholder.
 
 ## Motion
 
 Motion should be felt, not watched. Fast, purposeful, and *never* in the way.
 
 - **Should it animate at all?** Actions repeated 100+×/day (keyboard shortcuts, command palette) get **no** animation — it makes them feel slow. Occasional surfaces (modals, drawers, toasts) get standard animation. Rare/first-run moments can add delight.
-- **Duration < 300ms** for UI. Button press 100–160ms; tooltips/popovers 125–200ms; dropdowns 150–250ms; modals/drawers 200–500ms. A 180ms dropdown feels more responsive than a 400ms one.
-- **Custom ease-out, never ease-in.** Built-in curves are too weak. Use `cubic-bezier(0.23, 1, 0.32, 1)` for entering/interactive; ease-in-out (`cubic-bezier(0.77, 0, 0.175, 1)`) for on-screen movement. `ease-in` delays the first frame — the moment the user is watching — and feels sluggish.
+- **Duration < 300ms** for UI (house rule, not a research finding; NN/g's range for UI animation is 100–500ms). Button press 100–160ms; tooltips/popovers 125–200ms; dropdowns 150–250ms; modals/drawers 200–500ms. A 180ms dropdown feels more responsive than a 400ms one.
+- **Custom ease-out, never ease-in** (house style; Material uses accelerate curves on exits, so follow the platform if the product is Material). Built-in curves are too weak. Use `cubic-bezier(0.23, 1, 0.32, 1)` for entering/interactive; ease-in-out (`cubic-bezier(0.77, 0, 0.175, 1)`) for on-screen movement. `ease-in` delays the first frame — the moment the user is watching — and feels sluggish.
 - **Press feedback.** `transform: scale(0.97)` on `:active` (never below 0.95). Tactile confirmation the UI heard the click.
 - **Never animate from `scale(0)`.** Nothing appears from nothing — start at `scale(0.95)` + `opacity: 0`.
 - **Origin-aware popovers.** Popovers scale from their trigger (`transform-origin` set to the trigger), not center. Modals are the exception — they stay centered.
@@ -252,6 +265,14 @@ Motion should be felt, not watched. Fast, purposeful, and *never* in the way.
 - **Multiple accent colors** — dilutes focus
 - **Different hues for different surfaces** — keep one hue, shift only lightness
 - **Default typography** — system/Inter fonts and size-only hierarchy where a direction was set
+- **Pills and badges for status, counts or plans** — status is quiet text with a small dot; counts and meta are plain text; shortcuts are small keycaps. Keep a pill shape only where the control is one by nature (a switch). Not everything is a pill: radius follows size.
+- **Uppercase tracked labels** — eyebrows, section labels and table headers in sentence case with zero letter spacing
+- **Decorative tiles and tags** — a brand tile, logo chip or tag that repeats what the text beside it already says (a "VISA" tile next to "Visa ending 4417")
+- **Heavy weights for hierarchy** — weights 400 and 500, 600 for rare emphasis, no 700+; hierarchy from size and color. No italic for emphasis.
+- **Trailing periods on short strings** — labels, buttons, captions and one-sentence messages end without one; no exclamation marks
+- **Emoji as icons**; **icons in mixed sizes or colors** — one line set, one size and stroke, in the text role's color
+- **Hard-coded color literals** — every color, including white on a filled button, is a token
+- **Looping motion on things that are not live** — no pulse, shimmer or breathing glow; a loading skeleton may pulse but stops under reduced motion
 - **Structural hacks** — negative margins undoing parent padding, escape-hatch `calc()`, absolute positioning to dodge layout flow
 
 ---
@@ -291,7 +312,10 @@ Then ask: "Does that direction feel right?" If an inline render tool is availabl
 ## The checks (before showing)
 Run these against your output; if any fails, iterate before presenting.
 
+- **Width test** — load the screen at 320, 390 and 466px and measure, don't eyeball: list every button's width, height and font size. Buttons of the same role must match exactly; `scrollWidth` must equal the viewport width.
+- **Focus test** — run each flow by keyboard and check `document.activeElement` after every confirm, retry and delete. `BODY` is a fail.
 - **Swap test** — swap your typeface for the usual one, your layout for a standard template: would anything feel different? Where swapping wouldn't matter is where you defaulted.
+- **Slop test** — search the output for `border-radius` at half the element height on anything but a switch, `text-transform: uppercase`, `letter-spacing` above 0 on labels, weights of 700+, `italic`, color literals outside the token block, and `infinite` animations. Each hit is fixed or justified in one line. (Rules adapted from unslop by Damir Sokolovsky, @heydamir, https://github.com/heydamir/unslop, CC BY 4.0; keep this credit.)
 - **Squint test** — blur your eyes: hierarchy still readable? Nothing jumping out harshly?
 - **Signature test** — point to five specific elements where your signature appears. "The overall feel" doesn't count.
 - **Token test** — read your CSS variables aloud: do they belong to this product's world, or any project?

@@ -196,7 +196,7 @@ Skills in this repo reuse material from the works below. Each affected skill fol
 - Author: Damir Sokolovsky (@heydamir)
 - Source: https://github.com/heydamir/unslop
 - License: Creative Commons Attribution 4.0 International (CC BY 4.0) (`LICENSES/heydamir-unslop.CC-BY-4.0.txt`)
-- Used in: `design`, `design-lean`, `unslop`
+- Used in: `design`, `design-lean`, `interface-design`, `unslop`
 - License text: https://creativecommons.org/licenses/by/4.0/
 - Changes: condensed, adapted, and in some skills merged with other sources and restructured. This is not the original work.
 

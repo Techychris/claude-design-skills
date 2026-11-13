@@ -186,7 +186,7 @@ Outlines, borders, numbering, eyebrows, dividers and labels encode information; 
 
 **Details.**
 - Concentric radius: inner = outer − padding, minimum 4, wherever the padding is smaller than the outer radius (circles exempt). Scale: keycaps and tags 4–6, buttons and inputs 8–10, cards 12–16, panels 14–20. Not everything is a pill; buttons are square-ish or fully round, decided once.
-- Hit areas 44×44 for touch (40 minimum); extend small controls with a pseudo-element; never overlap.
+- Hit areas 44×44 for touch (40 minimum), and never under 24×24 anywhere (WCAG 2.5.8, AA; 44×44 is the AAA level); extend small controls with a pseudo-element; never overlap.
 - Optical alignment when geometric centering looks off.
 - Active rows: a small surface step with a hairline, not a glow. Keyboard shortcuts as small keycaps.
 - Charts: muted grid and labels, one accent per chart, neutral steps for the other series, type that fits the data (trend = line, comparison = bars, share = stacked bar or list, goal = progress).
