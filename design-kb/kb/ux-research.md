@@ -72,7 +72,7 @@ Built 2026-11-12 from two local clones, read-only. Tags: [verified] = read in th
   - **interaction-design** (22 skills) · commands: design-form, design-interaction, design-onboarding, error-flow, map-states
     - `animation-principles`: easing, staging, follow-through for one motion
     - `conversational-ux`: voice and dialog flows, error recovery, persona
-    - `doherty-threshold`: keep system response under 400 ms
+    - `doherty-threshold`: keep system response under 400 ms [convention: the source is a non-peer-reviewed IBM report arguing productivity rises sharply below 1 s; 400 ms is a later popularisation]
     - `error-handling-ux`: product-wide error prevention, detection, recovery
     - `feedback-patterns`: confirmations and status updates
     - `fitts-law`: target size and distance for controls, especially touch
@@ -131,7 +131,7 @@ Built 2026-11-12 from two local clones, read-only. Tags: [verified] = read in th
     - `critique-visual-hierarchy`: entry point, eye flow, emphasis
 - **Rules** (four per skill, paraphrased)
   - **heuristic-evaluation** (`prototyping-testing/skills/heuristic-evaluation/SKILL.md`)
-    - Use three to five evaluators, each working alone before findings are compared. [verified]
+    - Use three to five evaluators, each working alone before findings are compared. [verified] Hertzum and Jacobsen (2001, https://doi.org/10.1207/s15327590ijhc1304_05) found two evaluators agree only 5% to 65% on average, so treat the number as a planning heuristic.
     - Score each issue 0 to 4; a 4 ("usability catastrophe") is imperative to fix before release, per Nielsen's scale. [verified: nngroup.com, 2026-11-12]
     - Make two passes: a first orientation pass with no judging, then a second pass checking each heuristic (NN/g). [verified]
     - Pair the expert review with real-user testing rather than replacing it. (unsourced)
@@ -156,7 +156,7 @@ Built 2026-11-12 from two local clones, read-only. Tags: [verified] = read in th
     - Phrase feedback as an observation, a question, a suggestion, or an opinion with its reason. [verified]
     - Keep exploration and refinement critiques separate; give each action an owner and a deadline. [verified]
 - **License:** MIT, Copyright (c) 2026 MC Dean (LICENSE). The marketplace owner carries the same name. [verified]
-- **Sample-size rules (NN/g, not in these skills)**: qualitative usability tests 5 users; quantitative at least 20 (not the often-repeated 40); card sorting 15 per group; eyetracking 39. SUS average is 68 (Sauro, about 500 studies). A/B tests: fix sample size in advance, do not peek, 95% confidence is conventional. pm-skills' phase skills use the repo's own "Triple Diamond"; the Double Diamond is Design Council (2004). Single-evaluator severity ratings are unreliable; NN/g suggests the mean of about 3 raters.
+- **Sample-size rules (NN/g, not in these skills)**: qualitative usability tests 5 users; quantitative at least 20 (not the often-repeated 40); card sorting 15 per group; eyetracking 39. SUS average is 68 (Sauro, about 500 studies; peer-reviewed anchor: Lewis and Sauro 2018, J. Usability Studies 13(3)). A/B tests: fix sample size in advance, do not peek, 95% confidence is conventional. pm-skills' phase skills use the repo's own "Triple Diamond"; the Double Diamond is Design Council (2004). Single-evaluator severity ratings are unreliable; NN/g suggests the mean of about 3 raters.
 - **Gotchas**
   - The README claims 273 skills and 76 commands across 33 plugins in five collections. Counted at current upstream HEADs the five collections hold 275 skills (111 here, 164 elsewhere) and 76 commands (34 here, 42 elsewhere); the 33 plugins match. The other four collections live in separate repos, pulled in by marketplace.json as git-subdir sources. [verified online 2026-11-12]
   - The brief said 10 groups; the clone has 9 plugins. [verified]

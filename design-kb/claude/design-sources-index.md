@@ -4,6 +4,8 @@ Compiled 2026-11-12, then validated online the same day. Every repo below was sh
 
 Clone paths were session-local. To restore any repo: `git clone --depth 1 https://github.com/<owner>/<repo>`.
 
+`kb/references.md` is the verified bibliography (papers, standards, DOIs, evidence levels, unverified citations); use it for any research citation.
+
 ## A. Sources behind the user's design skills
 
 | Repo | Last commit | License | Feeds skill(s) | Notes |

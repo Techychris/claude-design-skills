@@ -4,11 +4,16 @@ Built 2026-11-12. Seven Haiku subagents each read local clones of 22 repos and w
 
 A third round (2026-11-12) added `kb/ux-mastery.md`: ten Haiku subagents researched UI/UX foundations on the live web rather than from repos, followed by focused passes on visual hierarchy, iconography, spacing, composition, devices and viewports, and a gap audit of Apple's HIG and the Android and Material docs (including foldables). It uses its own tags (`[verified]`, `[rechecked]`, `[estimated]`, `[assumed]`, `unknown`), defined at the top of that file.
 
+**Evidence tags.** `[experiment]` = peer-reviewed study. `[meta-analysis]` = pooled peer-reviewed studies. `[industry]` = non-peer-reviewed study or report (NN/g, Baymard, UXmatters, IBM report). `[standard]` = W3C, ISO or platform spec. `[convention]` = practitioner rule with no research base. Verified bibliography, DOIs and confidence levels: `kb/references.md` (source of truth where it disagrees with this file).
+
+**Evidence gaps.** No peer-reviewed evidence was found for APCA versus WCAG 2 contrast, vestibular-safe UI animation (ground it in WCAG 2.3.3 and `prefers-reduced-motion`), design-system effectiveness, or foldable and responsive layout (use platform docs). Treat these as `[convention]`.
+
 **Reading the tags.** `[verified]` = read in the cited file. `[inferred]` = the subagent's own deduction. Rules are paraphrased. Where a file says "not read", that part was skipped, so treat the file as a map, not the full contents.
 
 | File | Covers | Lines |
 |---|---|---|
 | `kb/ux-mastery.md` | UI/UX principles and foundations: perception, heuristics, visual design (hierarchy, spacing, composition, iconography), type and color, accessibility, interaction and motion, IA and writing, research, design systems, devices, viewports and foldables, Apple HIG and Android platform additions, ethics and AI-era UX, learning roadmap | 324 |
+| `kb/references.md` | Verified bibliography: papers, standards, DOIs, evidence levels, unverified citations, recommended additions, evidence gaps (source of truth for citations) | n/a |
 | `kb/validation.md` | Online validation scorecard, applied corrections, provenance findings, open items | n/a |
 | `kb/motion.md` | emilkowalski/skills (19 skills), lottiefiles/motion-design-skill, dylantarre/animation-principles (144 skills; 24 sampled), benjitaylor/skills (stageshow) | 188 |
 | `kb/ui-craft.md` | heydamir/unslop, dammyjay93/interface-design, bluzir/claude-code-design, recovered markdown-viewer `wireframe` skill, markdown-viewer/skills (current head) | 196 |

@@ -198,7 +198,7 @@ Path: /home/claude/markdown-viewer/skills (HEAD 2672b69). This repo no longer co
 ## 7. Validation additions (2026-11-12)
 
 Accessibility numbers the KB lacked:
-- Contrast: WCAG 1.4.3 needs 4.5:1 for text, 3:1 for large text (18 pt, or 14 pt bold). WCAG 1.4.11 needs 3:1 for UI components and focus indicators. WCAG 3.0 is a Working Draft (10 September 2026); its contrast algorithm "is yet to be determined" and it does not replace WCAG 2. Apple HIG names APCA as popular but uses WCAG AA ratios.
+- Contrast: WCAG 1.4.3 needs 4.5:1 for text, 3:1 for large text (18 pt, or 14 pt bold). WCAG 1.4.11 needs 3:1 for UI components and focus indicators. WCAG 3.0 is a Working Draft (10 September 2026); its contrast algorithm "is yet to be determined", it is not a requirement and it does not replace WCAG 2 (keep WCAG 2.2 ratios). APCA has no peer-reviewed validation [convention]. Apple HIG names APCA as popular but uses WCAG AA ratios.
 - Text spacing (WCAG 1.4.12, AA): content must survive line height 1.5x, paragraph spacing 2x, letter spacing 0.12x, word spacing 0.16x. A 45-75 character measure was not verified against a primary source (unsourced if used).
 - Motion: WCAG 2.2.2 (A) and 2.3.3 (AAA); see motion.md.
 - Apple Layout: order by importance (top and leading side), align, group, progressive disclosure.
