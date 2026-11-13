@@ -14,6 +14,7 @@ A third round (2026-11-12) added `kb/ux-mastery.md`: ten Haiku subagents researc
 |---|---|---|
 | `kb/ux-mastery.md` | UI/UX principles and foundations: perception, heuristics, visual design (hierarchy, spacing, composition, iconography), type and color, accessibility, interaction and motion, IA and writing, research, design systems, devices, viewports and foldables, Apple HIG and Android platform additions, ethics and AI-era UX, learning roadmap | 324 |
 | `kb/references.md` | Verified bibliography: papers, standards, DOIs, evidence levels, unverified citations, recommended additions, evidence gaps (source of truth for citations) | n/a |
+| `kb/narrow-widths.md` | Phone and foldable cover-screen widths: iPhone Duo display facts, defects measured in a demo run, rules for uniform buttons, reflow, focus and loaders | n/a |
 | `kb/validation.md` | Online validation scorecard, applied corrections, provenance findings, open items | n/a |
 | `kb/motion.md` | emilkowalski/skills (19 skills), lottiefiles/motion-design-skill, dylantarre/animation-principles (144 skills; 24 sampled), benjitaylor/skills (stageshow) | 188 |
 | `kb/ui-craft.md` | heydamir/unslop, dammyjay93/interface-design, bluzir/claude-code-design, recovered markdown-viewer `wireframe` skill, markdown-viewer/skills (current head) | 196 |
