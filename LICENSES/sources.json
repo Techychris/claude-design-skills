@@ -1,106 +1,80 @@
 {
-    "_about": "Third-party material reused in these skills. sync_skills.py reads this to write THIRD_PARTY_NOTICES.md into each skill folder listed under 'skills', and a combined one at the repo root. 'inline' copies the full license text into the notice; otherwise the notice gives attribution and a link (enough for CC BY 4.0).",
-    "sources": {
-        "frontend-design": {
-            "title": "frontend-design",
-            "author": "Anthropic, PBC",
-            "url": "https://github.com/anthropics/skills/tree/main/skills/frontend-design",
-            "license": "Apache License 2.0",
-            "file": "anthropics-frontend-design.Apache-2.0.txt",
-            "inline": true
-        },
-        "unslop": {
-            "title": "unslop",
-            "author": "Damir Sokolovsky (@heydamir)",
-            "url": "https://github.com/heydamir/unslop",
-            "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
-            "license_url": "https://creativecommons.org/licenses/by/4.0/",
-            "file": "heydamir-unslop.CC-BY-4.0.txt",
-            "inline": false
-        },
-        "interface-design": {
-            "title": "interface-design",
-            "author": "Damola Akinleye",
-            "url": "https://github.com/Dammyjay93/interface-design",
-            "license": "MIT License",
-            "file": "dammyjay93-interface-design.MIT.txt",
-            "inline": true
-        },
-        "designer-skills": {
-            "title": "Designer Skills (heuristic-evaluation, accessibility-audit)",
-            "author": "MC Dean",
-            "url": "https://github.com/Owl-Listener/designer-skills",
-            "license": "MIT License",
-            "file": "owl-listener-designer-skills.MIT.txt",
-            "inline": true
-        },
-        "stageshow": {
-            "title": "Stageshow",
-            "author": "Benji Taylor",
-            "url": "https://github.com/benjitaylor/skills/tree/main/stageshow",
-            "license": "MIT License",
-            "file": "benjitaylor-stageshow.MIT.txt",
-            "inline": true
-        },
-        "emil-skills": {
-            "title": "skills (animate, review-animations, animation-performance, emil-design-eng)",
-            "author": "Emil Kowalski",
-            "url": "https://github.com/emilkowalski/skills",
-            "license": "MIT License",
-            "file": "emilkowalski-skills.MIT.txt",
-            "inline": true
-        },
-        "motion-design-skill": {
-            "title": "motion-design-skill",
-            "author": "LottieFiles",
-            "url": "https://github.com/LottieFiles/motion-design-skill",
-            "license": "MIT License",
-            "file": "lottiefiles-motion-design-skill.MIT.txt",
-            "inline": true
-        },
-        "animation-principles": {
-            "title": "animation-principles",
-            "author": "Dylan Tarre",
-            "url": "https://github.com/dylantarre/animation-principles",
-            "license": "MIT License",
-            "file": "dylantarre-animation-principles.MIT.txt",
-            "inline": true
-        }
+  "_about": "Third-party material reused in these skills. sync_skills.py reads this to write THIRD_PARTY_NOTICES.md into each skill folder listed under 'skills', and a combined one at the repo root. 'inline' copies the full license text into the notice; otherwise the notice gives attribution and a link (enough for CC BY 4.0).",
+  "sources": {
+    "frontend-design": {
+      "title": "frontend-design",
+      "author": "Anthropic, PBC",
+      "url": "https://github.com/anthropics/skills/tree/main/skills/frontend-design",
+      "license": "Apache License 2.0",
+      "file": "anthropics-frontend-design.Apache-2.0.txt",
+      "inline": true
     },
-    "skills": {
-        "design": [
-            "frontend-design",
-            "unslop",
-            "interface-design",
-            "designer-skills",
-            "stageshow"
-        ],
-        "design-lean": [
-            "frontend-design",
-            "unslop",
-            "interface-design",
-            "designer-skills"
-        ],
-        "design-demo": [
-            "stageshow"
-        ],
-        "unslop": [
-            "unslop"
-        ],
-        "interface-design": [
-            "interface-design",
-            "unslop"
-        ],
-        "heuristic-evaluation": [
-            "designer-skills"
-        ],
-        "accessibility-audit": [
-            "designer-skills"
-        ],
-        "web-motion": [
-            "emil-skills",
-            "motion-design-skill",
-            "animation-principles"
-        ]
+    "unslop": {
+      "title": "unslop",
+      "author": "Damir Sokolovsky (@heydamir)",
+      "url": "https://github.com/heydamir/unslop",
+      "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "file": "heydamir-unslop.CC-BY-4.0.txt",
+      "inline": false
+    },
+    "interface-design": {
+      "title": "interface-design",
+      "author": "Damola Akinleye",
+      "url": "https://github.com/Dammyjay93/interface-design",
+      "license": "MIT License",
+      "file": "dammyjay93-interface-design.MIT.txt",
+      "inline": true
+    },
+    "designer-skills": {
+      "title": "Designer Skills (heuristic-evaluation, accessibility-audit)",
+      "author": "MC Dean",
+      "url": "https://github.com/Owl-Listener/designer-skills",
+      "license": "MIT License",
+      "file": "owl-listener-designer-skills.MIT.txt",
+      "inline": true
+    },
+    "stageshow": {
+      "title": "Stageshow",
+      "author": "Benji Taylor",
+      "url": "https://github.com/benjitaylor/skills/tree/main/stageshow",
+      "license": "MIT License",
+      "file": "benjitaylor-stageshow.MIT.txt",
+      "inline": true
+    },
+    "emil-skills": {
+      "title": "skills (animate, review-animations, animation-performance, emil-design-eng)",
+      "author": "Emil Kowalski",
+      "url": "https://github.com/emilkowalski/skills",
+      "license": "MIT License",
+      "file": "emilkowalski-skills.MIT.txt",
+      "inline": true
+    },
+    "motion-design-skill": {
+      "title": "motion-design-skill",
+      "author": "LottieFiles",
+      "url": "https://github.com/LottieFiles/motion-design-skill",
+      "license": "MIT License",
+      "file": "lottiefiles-motion-design-skill.MIT.txt",
+      "inline": true
+    },
+    "animation-principles": {
+      "title": "animation-principles",
+      "author": "Dylan Tarre",
+      "url": "https://github.com/dylantarre/animation-principles",
+      "license": "MIT License",
+      "file": "dylantarre-animation-principles.MIT.txt",
+      "inline": true
     }
+  },
+  "skills": {
+    "design": ["frontend-design", "unslop", "interface-design", "designer-skills", "stageshow"],
+    "design-lean": ["frontend-design", "unslop", "interface-design", "designer-skills"],
+    "design-demo": ["stageshow"],
+    "unslop": ["unslop"],
+    "interface-design": ["interface-design", "unslop"],
+    "heuristic-evaluation": ["designer-skills"],
+    "accessibility-audit": ["designer-skills"],
+    "web-motion": ["emil-skills", "motion-design-skill", "animation-principles"]
+  }
 }
