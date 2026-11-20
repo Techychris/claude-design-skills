@@ -72,7 +72,7 @@ Steps 5–8 above can be run informally (you and the person just poking at it to
 - The build is genuinely complex — a multi-node graph, several tool integrations, or anything with real production stakes.
 - They're past the learning phase and want to harden something they intend to ship.
 
-For a casual first-agent build in a mentoring session, don't default to the full pipeline — it's heavier than the moment usually calls for. Run it in **compressed mode** (per the pipeline's own mode-selection rule) unless the build clearly has 2+ genuine subtasks or cross-cutting concerns. When you do invoke it, add the agent-specific hard gates, rubric criteria, reviewer persona, and lowered teaching-context threshold from `references/quality-pipeline.md` — don't apply brknpipe's generic defaults unmodified to an agent deliverable.
+For a casual first-agent build in a mentoring session, don't default to the full pipeline — it's heavier than the moment usually calls for. Run it in **Light mode** (the pipeline's default) unless the build clearly has 2+ genuine subtasks or cross-cutting concerns, which call for Full mode. When you do invoke it, add the agent-specific hard gates, rubric criteria, reviewer role, and lowered teaching-context pass mark from `references/quality-pipeline.md` — don't apply brknpipe's generic defaults unmodified to an agent deliverable.
 
 ## Interaction style
 
