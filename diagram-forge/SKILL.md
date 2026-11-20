@@ -1,6 +1,6 @@
 ---
 name: diagram-forge
-description: "Create clean, professional box-and-arrow diagrams (flowcharts, architecture diagrams, control-spectrum/comparison panels, node graphs) as PNG images via a small matplotlib helper library. Also supports proper ArchiMate enterprise-architecture notation (business/application/technology layer colors, element icons, and the standard relationship arrows: composition, aggregation, assignment, realization, serving, access, flow, triggering, specialization) for Layered Views, Application Structure Views, and similar enterprise-architecture diagrams. Use this INSTEAD of freehand matplotlib/PIL code whenever a diagram, flowchart, architecture sketch, process diagram, node/edge graph, or ArchiMate/enterprise-architecture view is needed for a document, slide, or chat reply. Not for photographs, charts of numeric data (use the data-analysis/plotting skill for that), or hand-drawn/artistic illustration."
+description: "Create clean, professional box-and-arrow diagrams (flowcharts, architecture diagrams, control-spectrum/comparison panels, node graphs) as PNG images via a small matplotlib helper library. Also supports proper ArchiMate enterprise-architecture notation (business/application/technology layer colors, element icons, and the standard relationship arrows: composition, aggregation, assignment, realization, serving, access, flow, triggering, specialization) for Layered Views, Application Structure Views, and similar enterprise-architecture diagrams. Use this INSTEAD of freehand matplotlib/PIL code whenever a diagram, flowchart, architecture sketch, process diagram, node/edge graph, or ArchiMate/enterprise-architecture view is needed for a document, slide, or chat reply. Not for photographs, charts of numeric data (use the dataviz skill for that), or hand-drawn/artistic illustration."
 compatibility: "Requires matplotlib, numpy, and Pillow (PIL) in the Python environment."
 ---
 
@@ -17,6 +17,8 @@ Freehand matplotlib diagrams reliably go wrong in the same two ways:
 `diagram_kit.py`'s `Canvas` class fixes both by taking the content's width/height as constructor arguments and deriving the figure size and axis limits from that directly, with a fixed margin added on top. There is no separate "canvas size" to get out of sync with the content.
 
 ## Workflow
+
+0. Check `python3 -c "import matplotlib, numpy, PIL"`. If it fails, install them (in a virtualenv on a person's own machine: `python3 -m venv .venv && .venv/bin/pip install matplotlib numpy pillow`), or tell the person what's missing. Don't fall back to hand-drawn matplotlib.
 
 1. Sketch the diagram on paper/in your head first: what are the nodes, what connects to what, are there groups/bands, is it one panel or a side-by-side comparison. Decide the content width and height in the same made-up unit (inches work well: box sizes like 1.5, gaps like 0.3).
 2. Write a small script that imports `diagram_kit` and calls `Canvas(width, height, margin=0.3)`, then `.node()`, `.arrow()`, `.band()`, `.text()` as needed. See `scripts/example_control_spectrum.py` and `scripts/example_two_panel_comparison.py` for full worked examples.

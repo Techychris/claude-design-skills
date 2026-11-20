@@ -18,15 +18,12 @@ My Claude skills: interface design, UX, writing, documents, diagrams, video and 
 | [`interface-design`](interface-design/SKILL.md) | Craft-first design for dashboards, admin panels, SaaS apps, settings and data UIs: hierarchy, tokens, states, polish. Not for landing or marketing pages. |
 | [`plain-writing`](plain-writing/SKILL.md) | Write or revise prose without AI-writing tells (correctio, padded triplets, purple prose, filler words, generic hedges). Use for any drafted text meant for a… |
 | [`remove-ai-tells`](remove-ai-tells/SKILL.md) | Detects and strips recognizable AI-writing tells from drafted text before it goes out to a reader. Covers em dashes, banned filler vocabulary (delve,… |
-| [`terse`](terse/SKILL.md) | Write or revise prose without AI-writing tells (correctio, padded triplets, purple prose, filler words, generic hedges). Use for any drafted text meant for a… |
 | [`unslop`](unslop/SKILL.md) | Polish or redesign a UI so it stops looking AI-generated: audit the slop, set a direction from the product, fix it in nine passes. Use for unslop, polish,… |
 | [`ux-mapping`](ux-mapping/SKILL.md) | Build or review journey maps, service blueprints, experience maps and empathy maps from evidence, with traceable pains and opportunities and a checked visual… |
 | [`ux-wireframe`](ux-wireframe/SKILL.md) | Turn a UX opportunity or brief into lo-fi wireframes, with 3+ directions to compare, an annotated spec with states, accessibility and responsive rules, and a… |
 | [`video-creator`](video-creator/SKILL.md) | Create narrated videos (MP4) with engaging, natural-sounding AI voiceover — never robotic. Use this skill whenever the user asks to make a video, explainer,… |
 | [`web-motion`](web-motion/SKILL.md) | Use when asked to animate web UI, add or tune transitions, fix janky or laggy animation, handle prefers-reduced-motion, review or audit motion, or name an… |
 <!-- SKILLS-INDEX:END -->
-
-`terse` and `plain-writing` are the same skill under two names.
 
 ## Install
 

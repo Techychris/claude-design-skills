@@ -6,7 +6,7 @@
 // catching anything the mechanical checks are actually meant to catch.
 //
 // Usage: node extract_text.js <spec.json>
-//        node extract_text.js myspec.json | python3 /mnt/skills/user/remove-ai-tells/scripts/scan_tells.py -
+//        node extract_text.js myspec.json | python3 ../remove-ai-tells/scripts/scan_tells.py -   (run from the docforge folder)
 const fs = require("fs");
 
 const specPath = process.argv[2];

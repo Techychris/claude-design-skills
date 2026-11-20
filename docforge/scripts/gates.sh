@@ -17,7 +17,21 @@ if [ "$#" -ge 2 ]; then
 fi
 
 cd "$(dirname "$0")/.."
-SOFFICE="python3 /mnt/skills/public/docx/scripts/office/soffice.py"
+# LibreOffice: the claude.ai sandbox ships a wrapper inside the docx skill;
+# elsewhere use soffice/libreoffice from PATH.
+if [ -f /mnt/skills/public/docx/scripts/office/soffice.py ]; then
+  SOFFICE="python3 /mnt/skills/public/docx/scripts/office/soffice.py"
+elif command -v soffice >/dev/null 2>&1; then
+  SOFFICE="soffice"
+elif command -v libreoffice >/dev/null 2>&1; then
+  SOFFICE="libreoffice"
+else
+  echo "GATE render: CANNOT RUN (LibreOffice not found; install it or run in the claude.ai sandbox)"
+  SOFFICE=""
+fi
+for tool in pdftotext pdftoppm identify; do
+  command -v "$tool" >/dev/null 2>&1 || echo "NOTE: $tool not found; the text/page gates will fail until it is installed"
+done
 OUT=out; mkdir -p $OUT; FAIL=0
 
 for js in scripts/themes.js scripts/components.js scripts/build.js; do
@@ -62,6 +76,7 @@ check_one() {
   fi
 
   local pdf="${outdoc%.docx}.pdf"
+  if [ -z "$SOFFICE" ]; then echo "GATE render $label: FAIL (no LibreOffice)"; FAIL=1; return; fi
   $SOFFICE --headless --convert-to pdf "$outdoc" --outdir "$outdir" >/dev/null 2>&1
   [ -f "$pdf" ] && echo "GATE render $label: PASS" || { echo "GATE render $label: FAIL"; FAIL=1; return; }
 

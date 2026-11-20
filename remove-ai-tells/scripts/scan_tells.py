@@ -6,15 +6,18 @@ Usage:
     python scan_tells.py <file>
     cat draft.txt | python scan_tells.py -
 
-Scans PROSE PARAGRAPHS ONLY. Markdown table rows, list items, headers, and
-fenced code blocks are excluded from every check, so a document that catalogs
-or discusses these terms (like this skill's own reference file) does not
-trigger false positives on its own examples.
+Scans prose paragraphs, list items, and headers. Markdown table rows, fenced
+code blocks, and YAML frontmatter are excluded. A term written inside quotes
+or **bold** counts as a labeled example (a document naming the pattern rather
+than committing it) and is reported separately instead of failing the gate.
+Curly quotes and apostrophes are normalized first, so text pasted from Word or
+Google Docs is matched the same as plain text.
 
 Exit code 0 = no hard-gate hits. Exit code 1 = at least one hard-gate hit.
-Hard-gate categories: em dash, banned vocabulary, "it's not X it's Y".
+Hard-gate categories: em dash, banned vocabulary, Claude phrases, and the
+"it's not X, it's Y" contrast (same-sentence and split-sentence forms).
 Heuristic categories (reported but not gating): sentence-length uniformity,
-parenthetical density.
+parenthetical density, dash substitutes (spaced en dash or double hyphen).
 """
 
 import re
@@ -39,9 +42,20 @@ CLAUDE_PHRASES = [
     "i'd be happy to", "i would be happy to",
 ]
 
-ITS_NOT_X_ITS_Y = re.compile(
-    r"\bit'?s not\b[^.!?]{0,80}?,\s*(it'?s|its)\b", re.IGNORECASE
-)
+# Negated subject + contrast clause. Run on apostrophe-normalized text.
+_NEG = r"(?:it'?s not|it is not|it isn'?t|this is not|this isn'?t|that'?s not|that is not|that isn'?t|isn'?t|is not|wasn'?t|was not|aren'?t|are not)"
+_POS = r"(?:it'?s|it is|it was|this is|that'?s|that is|they'?re|they are)"
+ITS_NOT_X_ITS_Y = [
+    # "It's not X, it's Y" / "isn't X; it's Y" (one sentence)
+    re.compile(r"\b" + _NEG + r"\b[^.!?]{0,80}?[,;:]\s*" + _POS + r"\b", re.IGNORECASE),
+    # "This isn't about X. It's about Y." (split across two sentences)
+    re.compile(r"\b" + _NEG + r"\b[^.!?]{0,80}?[.!?]\s+" + _POS + r"\b", re.IGNORECASE),
+]
+
+# Common ways an em dash gets swapped out without rewriting the sentence.
+DASH_SUBSTITUTES = re.compile(r"\s(?:\u2013|--)\s")
+
+QUOTE_NORMALIZE = str.maketrans({"\u2018": "'", "\u2019": "'", "\u201c": '"', "\u201d": '"'})
 
 EM_DASH = "\u2014"
 
@@ -70,12 +84,12 @@ def is_labeled_example(line, start, end):
 
 
 def extract_prose(text):
-    """Return only prose paragraph lines: strip YAML frontmatter, tables,
-    list items, headers, and fenced code blocks. Returns list of
-    (line_number, line_text). Frontmatter is excluded because a SKILL.md
-    description legitimately needs to name example terms for triggering
-    (per skill-creator's guidance to be concrete and "pushy") -- that's
-    metadata naming its subject, not prose committing the pattern."""
+    """Return scannable lines as (line_number, line_text, kind), where kind is
+    "prose", "list", or "header". YAML frontmatter, markdown table rows, and
+    fenced code blocks are dropped. List and header markers are stripped so
+    they don't affect matching. Frontmatter is excluded because a SKILL.md
+    description legitimately needs to name example terms for triggering;
+    that's metadata naming its subject, not prose committing the pattern."""
     lines = text.splitlines()
     frontmatter_end = None
     if lines and lines[0].strip() == "---":
@@ -84,7 +98,7 @@ def extract_prose(text):
                 frontmatter_end = idx
                 break
 
-    prose_lines = []
+    out = []
     in_code_block = False
     for i, line in enumerate(lines, start=1):
         if frontmatter_end is not None and i <= frontmatter_end + 1:
@@ -93,27 +107,27 @@ def extract_prose(text):
         if stripped.startswith("```"):
             in_code_block = not in_code_block
             continue
-        if in_code_block:
-            continue
-        if not stripped:
+        if in_code_block or not stripped:
             continue
         if stripped.startswith("|"):  # markdown table row
             continue
-        if stripped.startswith(("-", "*", "+")) and len(stripped) > 1 and stripped[1] == " ":
-            continue  # bullet list item
-        if re.match(r"^\d+\.\s", stripped):
-            continue  # numbered list item
-        if stripped.startswith("#"):
-            continue  # header
-        if stripped.startswith("["):  # checklist-style lines e.g. "[ ] ..."
+        m = re.match(r"^(?:[-*+]\s+(?:\[[ xX]\]\s+)?|\d+[.)]\s+|\[[ xX]\]\s+)", stripped)
+        if m:
+            out.append((i, stripped[m.end():], "list"))
             continue
-        prose_lines.append((i, line))
-    return prose_lines
+        if stripped.startswith("#"):
+            out.append((i, stripped.lstrip("#").strip(), "header"))
+            continue
+        out.append((i, line, "prose"))
+    return out
 
 
 def scan(text):
-    prose = extract_prose(text)
-    prose_text = "\n".join(l for _, l in prose)
+    text = text.translate(QUOTE_NORMALIZE)
+    lines = extract_prose(text)
+    # Uniformity and density heuristics use running prose only: list items and
+    # headers are fragments by design and would skew sentence statistics.
+    prose_text = "\n".join(l for _, l, kind in lines if kind == "prose")
 
     findings = {
         "em_dash": [],
@@ -121,11 +135,12 @@ def scan(text):
         "claude_phrases": [],
         "its_not_x_its_y": [],
         "excluded_as_example": [],
+        "dash_substitutes": [],
         "sentence_uniformity": None,
         "parenthetical_density": None,
     }
 
-    for lineno, line in prose:
+    for lineno, line, _kind in lines:
         for m in re.finditer(re.escape(EM_DASH), line):
             entry = {"line": lineno, "text": line.strip()}
             bucket = "excluded_as_example" if is_labeled_example(line, m.start(), m.end()) else "em_dash"
@@ -140,10 +155,18 @@ def scan(text):
                 entry = {"line": lineno, "phrase": p, "text": line.strip()}
                 bucket = "excluded_as_example" if is_labeled_example(line, m.start(), m.end()) else "claude_phrases"
                 findings[bucket].append(dict(entry, category="claude_phrases") if bucket == "excluded_as_example" else entry)
-        for m in ITS_NOT_X_ITS_Y.finditer(line):
-            entry = {"line": lineno, "text": line.strip()}
-            bucket = "excluded_as_example" if is_labeled_example(line, m.start(), m.end()) else "its_not_x_its_y"
-            findings[bucket].append(dict(entry, category="its_not_x_its_y") if bucket == "excluded_as_example" else entry)
+        seen_contrast = set()
+        for rx in ITS_NOT_X_ITS_Y:
+            for m in rx.finditer(line):
+                if m.start() in seen_contrast:
+                    continue
+                seen_contrast.add(m.start())
+                entry = {"line": lineno, "text": line.strip()}
+                bucket = "excluded_as_example" if is_labeled_example(line, m.start(), m.end()) else "its_not_x_its_y"
+                findings[bucket].append(dict(entry, category="its_not_x_its_y") if bucket == "excluded_as_example" else entry)
+        for m in DASH_SUBSTITUTES.finditer(line):
+            if not is_labeled_example(line, m.start(), m.end()):
+                findings["dash_substitutes"].append({"line": lineno, "text": line.strip()})
 
     # Sentence-length uniformity (heuristic, not a hard gate)
     sentences = re.split(r"(?<=[.!?])\s+", prose_text)
@@ -203,6 +226,11 @@ def print_report(findings):
         print(f"Excluded as labeled example (quoted/bolded, not counted against gate): {len(findings['excluded_as_example'])}")
         for f in findings["excluded_as_example"][:10]:
             print(f"  line {f['line']} [{f['category']}]: {f['text'][:100]}")
+
+    if findings["dash_substitutes"]:
+        print(f"Dash substitutes (heuristic, spaced en dash or --): {len(findings['dash_substitutes'])}")
+        for f in findings["dash_substitutes"][:10]:
+            print(f"  line {f['line']}: {f['text'][:100]}")
 
     su = findings["sentence_uniformity"]
     if su:

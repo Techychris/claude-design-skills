@@ -15,7 +15,7 @@ Sound quality is decided twice: once by the voice model, and once by the words y
 bash scripts/setup_env.sh
 ```
 
-This installs `edge-tts` and `pillow`, and applies a critical fix: **edge-tts builds its SSL context from certifi's CA bundle, which doesn't trust sandboxed egress proxies.** The script appends the system CA store to certifi's bundle. Without this, every synthesis call fails with `SSL: CERTIFICATE_VERIFY_FAILED`. ffmpeg is preinstalled in this environment — verify with `which ffmpeg` and never reinstall it.
+This installs `edge-tts` and `pillow`. In the claude.ai sandbox it also applies a critical fix: **edge-tts builds its SSL context from certifi's CA bundle, which doesn't trust sandboxed egress proxies**, so the script appends the system CA store to certifi's bundle (without it, every synthesis call fails with `SSL: CERTIFICATE_VERIFY_FAILED`). On anyone's own computer the script changes nothing system-wide: it installs into a `.venv` in the working folder and never edits certifi. ffmpeg is preinstalled in the sandbox; elsewhere, check `which ffmpeg` and, if it's missing, ask the person to install it rather than installing it yourself.
 
 ## Step 1: Write a script that sounds human
 
@@ -24,7 +24,7 @@ A perfect voice reading robotic prose still sounds robotic. Before any synthesis
 - Use contractions everywhere: "it's", "you'll", "don't". Written-out forms ("it is", "you will") are the single biggest tell of machine narration.
 - Short sentences, varied rhythm. Mix a 4-word punch with a longer flowing line. Never three long sentences in a row.
 - Address the listener: "you", "your", rhetorical questions ("So what does that mean?").
-- Add natural connectors and breath points: "Now,", "Here's the thing —", "And honestly?".
+- Add natural connectors and breath points: "Now,", "Here's the thing —", "And honestly?". Dashes here are pacing cues for the voice, and the remove-ai-tells rules don't apply to a narration script nobody reads. Do strip em dashes from any on-screen text and from captions.
 - Spell out anything ambiguous: numbers in context ("twenty twenty-six", "$4.5M" → "four and a half million dollars"), acronyms on first use, URLs as words.
 - Punctuation is prosody. Commas, em-dashes, and ellipses create pauses; question marks lift intonation; exclamation points add energy (use sparingly).
 - 150 words ≈ 1 minute of narration. A 60-second video is ~140–160 words.
@@ -55,7 +55,7 @@ python scripts/tts_generate.py scenes.json --voice en-US-AndrewMultilingualNeura
 
 Tune `--rate` by *measured* speed, not feel: target 140–160 WPM gross for explainers (the engagement sweet spot). Andrew/Ava run hot at default (~170+ WPM), so explainers usually need `--rate="-8%"` (note the `=` — argparse requires it for negative values); reserve `+0%` for high-energy social cuts. After generating, compute WPM from `timings.json` (total words ÷ total duration × 60) and adjust if outside the band. Keep one voice per video unless doing dialogue.
 
-**Fallback — local Kokoro-82M** (Apache 2.0, runs on CPU, excellent prosody) if the network path fails or the user wants fully offline: `pip install kokoro soundfile --break-system-packages && apt-get install -y espeak-ng`, then use `KPipeline(lang_code='a')` with voice `af_heart` or `am_michael`. Heavier install (pulls torch), so only reach for it when edge-tts isn't viable.
+**Fallback — local Kokoro-82M** (Apache 2.0, runs on CPU, excellent prosody) if the network path fails or the user wants fully offline: `pip install kokoro soundfile` (in the sandbox add `--break-system-packages`; on a person's own machine use the `.venv`) plus `espeak-ng` (sandbox: `apt-get install -y espeak-ng`; elsewhere ask the person to install it), then use `KPipeline(lang_code='a')` with voice `af_heart` or `am_michael`. Heavier install (pulls torch), so only reach for it when edge-tts isn't viable.
 
 **Always listen-check**: after generating, spot-check durations look sane (`timings.json`) and present at least the first audio file to the user early if the video is long — voice choice is subjective and cheap to change before assembly.
 
@@ -93,7 +93,7 @@ For anything the script doesn't cover (vertical 9:16, background music, video fo
 
 ## Step 5: Deliver
 
-Copy the final MP4 to `/mnt/user-data/outputs/` and present it with `present_files`. For videos over ~90s, also present the script text so the user can request line edits, and offer to re-render individual scenes (per-scene files make this cheap — never re-synthesize the whole video for a one-line change).
+In the claude.ai sandbox, copy the final MP4 to `/mnt/user-data/outputs/` and present it with `present_files`. Anywhere else, leave it in the working folder and share it with whatever file-sharing tool the session has (or give its full path). For videos over ~90s, also present the script text so the user can request line edits, and offer to re-render individual scenes (per-scene files make this cheap — never re-synthesize the whole video for a one-line change).
 
 ## Pitfalls
 
