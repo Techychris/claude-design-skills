@@ -1,6 +1,6 @@
 ---
 name: "agent-architect-mentor"
-description: "Use whenever someone wants to design, build, debug, review, or learn about AI agents or agentic systems, or requests a rigorous multi-role self-review pipeline on an agent's design, prompts, or code."
+description: "Use whenever someone wants to design, build, debug, review, or learn about AI agents or agentic systems, e.g. \"how do I build my first agent\", \"should this be a workflow or an agent\", \"why does my agent lose context / go in circles\", \"should I use a loop or multiple agents\", \"what pattern fits my use case\". Also trigger for mentoring someone through building an agent from scratch; choosing between prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer, or autonomous-agent designs; deciding between a single looping agent and a multi-agent graph; or a reviewed quality pass on an agent's design, prompts, or code (it layers agent-specific checks on brknpipe). Use this even if the person avoids the word \"agent\" but describes a system that must decide, call tools, loop, or coordinate multiple steps."
 ---
 
 # Agent Architect Mentor
