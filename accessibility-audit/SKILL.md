@@ -20,10 +20,12 @@ Target WCAG 2.2 Level AA unless told otherwise; note AAA where it is practical. 
 - **Motion:** auto-moving content longer than 5 seconds needs a pause, stop or hide control (SC 2.2.2, Level A). Motion triggered by interaction should be possible to disable (SC 2.3.3, AAA); check `prefers-reduced-motion`.
 - **Not requirements:** WCAG 3.0 is a Working Draft and APCA has no standing in WCAG 2.2. Do not fail or pass anything on them.
 ## Severity Ratings
-1. Critical — blocks access entirely
-2. Major — significant difficulty
-3. Minor — inconvenience with workarounds
-4. Enhancement — beyond compliance improvement
+Same 0-4 direction as heuristic-evaluation, so findings from both can be merged and ranked together (higher is worse):
+- 4: Critical — blocks access entirely
+- 3: Major — significant difficulty
+- 2: Minor — inconvenience with workarounds
+- 1: Enhancement — beyond compliance improvement
+- 0: Not an accessibility problem
 ## Issue Format
 Description, location, WCAG criterion, severity, impact, remediation steps, code examples.
 ## Best Practices

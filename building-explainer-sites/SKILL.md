@@ -62,7 +62,7 @@ For library choices, read `references/tools.md`.
 Run the bundled audit. Execute it; don't read it into context:
 
 ```bash
-pip install playwright && python -m playwright install chromium   # once, if missing
+pip install playwright && python -m playwright install chromium   # once, if missing (use a virtualenv on your own machine)
 python scripts/audit.py path/to/page.html            # or a URL
 python scripts/audit.py page.html --json report.json # machine-readable output
 ```

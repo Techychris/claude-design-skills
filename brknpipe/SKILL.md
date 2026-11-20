@@ -1,6 +1,6 @@
 ---
 name: brknpipe
-description: "7-step self-review pipeline for high-quality output. Executor-agnostic: roles (Planner, Worker, Reviewer, Assembler, Revision Editor) fillable by a person, team, AI, or mix. Decomposes work, scores against anchored 5-band rubrics with binary checks, grounds factual claims against real sources, revises on findings, persists validated memory across runs. Triggers: \"use the pipeline\", \"high quality\", \"self-review\", \"pipeline mode\", or complex multi-part tasks where quality matters."
+description: "7-step self-review pipeline for high-quality output. Executor-agnostic: roles (Planner, Worker, Reviewer, Assembler, Revision Editor) fillable by a person, team, AI, or mix. Decomposes work, scores against anchored 5-band rubrics with binary checks, grounds factual claims against real sources, revises on findings, persists validated memory across runs. Triggers: \"use the pipeline\", \"brknpipe\", \"self-review\", \"pipeline mode\", or complex multi-part deliverables where the user asks for a reviewed, high-stakes result."
 ---
 
 # Self-Review Pipeline v8.5 (Lean, Research-Hardened)

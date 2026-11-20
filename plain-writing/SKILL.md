@@ -29,7 +29,7 @@ Apply these rules while drafting, then run the check pass before delivering. Use
 2. **Third-item test:** for every list of three, check whether the third item is distinct from the first two. If it overlaps or is vague, drop it.
 3. **Contrast test:** for every "not X but Y" or "isn't just", check whether anyone claimed X. If not, state Y alone.
 4. **Specifics audit:** confirm every number, name, and date is verified or labeled as an estimate.
-5. **Surface scan:** search the draft for em dashes, the rule 7 words, "In summary", "Let me know", and question marks followed by an answer.
+5. **Surface scan:** search the draft for em dashes, the rule 7 words, "In summary", "Let me know", and question marks followed by an answer. If the remove-ai-tells skill is installed, run its `scripts/scan_tells.py` on the draft instead of searching by eye.
 6. **Length check:** if the draft is longer than the content requires, cut sentences that add no new information.
 
 Report nothing about the check pass unless asked; deliver the cleaned text.

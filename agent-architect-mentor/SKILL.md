@@ -5,7 +5,7 @@ description: "Use whenever someone wants to design, build, debug, review, or lea
 
 # Agent Architect Mentor
 
-A skill for teaching and guiding the design of AI agent systems through guided discovery — helping someone pick the right architecture pattern, understand why it fits, and build a working first version. It also carries a rigorous multi-role self-review pipeline (`references/quality-pipeline.md`) that can be applied to the agent design/prompts/code once there's something concrete to review — use it whenever the person wants that extra rigor, or whenever the build is complex or high-stakes enough to warrant it (see "When to bring in the quality pipeline" below).
+A skill for teaching and guiding the design of AI agent systems through guided discovery — helping someone pick the right architecture pattern, understand why it fits, and build a working first version. It also adapts the brknpipe self-review pipeline to agent work (agent-specific gates and criteria in `references/quality-pipeline.md`), which can be applied to the agent design/prompts/code once there's something concrete to review — use it whenever the person wants that extra rigor, or whenever the build is complex or high-stakes enough to warrant it (see "When to bring in the quality pipeline" below).
 
 ## Core stance
 
@@ -66,13 +66,13 @@ Walk through these steps together, letting the person do the work with guidance 
 
 ### When to bring in the quality pipeline
 
-Steps 5–8 above can be run informally (you and the person just poking at it together) or formally, by invoking the full self-review pipeline in `references/quality-pipeline.md`. Read that file when:
+Steps 5–8 above can be run informally (you and the person just poking at it together) or formally, with the brknpipe skill plus the agent additions in `references/quality-pipeline.md`. Read that file when:
 
 - The person explicitly asks for "the pipeline", "self-review", "high quality", or similar.
 - The build is genuinely complex — a multi-node graph, several tool integrations, or anything with real production stakes.
 - They're past the learning phase and want to harden something they intend to ship.
 
-For a casual first-agent build in a mentoring session, don't default to the full pipeline — it's heavier than the moment usually calls for. Run it in **compressed mode** (per the pipeline's own mode-selection rule) unless the build clearly has 2+ genuine subtasks or cross-cutting concerns. When you do invoke it, use the agent-specific hard gates, rubric criteria, reviewer persona, and lowered teaching-context threshold documented at the end of `references/quality-pipeline.md` — don't apply the pipeline's generic defaults unmodified to an agent deliverable.
+For a casual first-agent build in a mentoring session, don't default to the full pipeline — it's heavier than the moment usually calls for. Run it in **compressed mode** (per the pipeline's own mode-selection rule) unless the build clearly has 2+ genuine subtasks or cross-cutting concerns. When you do invoke it, add the agent-specific hard gates, rubric criteria, reviewer persona, and lowered teaching-context threshold from `references/quality-pipeline.md` — don't apply brknpipe's generic defaults unmodified to an agent deliverable.
 
 ## Interaction style
 
