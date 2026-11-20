@@ -1,113 +1,67 @@
 ---
 name: brknpipe
-description: "7-step self-review pipeline for high-quality output. Executor-agnostic: roles (Planner, Worker, Reviewer, Assembler, Revision Editor) fillable by a person, team, AI, or mix. Decomposes work, scores against anchored 5-band rubrics with binary checks, grounds factual claims against real sources, revises on findings, persists validated memory across runs. Triggers: \"use the pipeline\", \"brknpipe\", \"self-review\", \"pipeline mode\", or complex multi-part deliverables where the user asks for a reviewed, high-stakes result."
+description: "Self-review pipeline for work that has to be right. Plans the work, runs mechanical checks (tests, builds, schemas) first, tries to break code with targeted tests, then has a reviewer that sees only the artifact score it against yes/no checks, and applies the findings. Light mode by default; Full mode for multi-part or high-stakes work. Triggers: \"use the pipeline\", \"brknpipe\", \"self-review\", \"pipeline mode\", or complex multi-part deliverables where the user asks for a reviewed, high-stakes result."
 ---
 
-# Self-Review Pipeline v8.5 (Lean, Research-Hardened)
+# brknpipe v9
 
-Quality methodology, not software. Roles: Planner, Worker, Reviewer, Assembler, Revision Editor; an Orchestrator sequences them. Any executor may fill any role, but must honor information barriers even when playing multiple roles.
+A review method, not software. A person, a model, or a mix can fill any role, but the review barrier below holds even when one executor plays every role.
 
-**Threshold:** 80 default. 85–90 high-stakes; 70–75 drafts. Plan may adjust.
+**Core idea:** outside checks (tests, builds, validators) are the most reliable signal, so they run first and can end the run. Judgment review covers only what they can't check, and it costs tokens, so it runs once by default.
 
-**Flow:** PLAN → RUBRIC → WORK → CROSS-CHECK (conditional) → REVIEW (loop ≤3) → ASSEMBLE → PROJECT REVIEW (loop ≤2) → REVISE (always) → MEMORY WRITE.
+## Pick a mode
 
-**Mode selection:** Compressed Mode is the DEFAULT for single-deliverable trivial/standard tasks. Full pipeline only when: 2+ genuine subtasks, cross-cutting concerns, integration risk, or threshold ≥85.
+**Light (default).** One deliverable, no real subtasks, pass mark under 85.
 
-## Scoring (all reviews)
+**Full.** Use it when any of these hold: 2+ genuine subtasks, integration risk across parts, pass mark 85 or higher, or the user asks for it. Read `references/full-pipeline.md` before starting. Don't load it in Light mode.
 
-Five bands, fixed values: Exemplary 95 (≥ the 90+ anchor) | Strong 85 | Adequate 75 (between anchors — justification required) | Weak 65 | Deficient 50 (≤ the 60 anchor / broken). Overall = weighted average of band values. Anchor calibration mandatory: every band names which anchor it's nearer and why. Out-of-range value → snap to nearest band, log.
+**Pass mark:** 80 by default; 85–90 for high stakes; 70–75 for drafts or teaching.
 
-**Binary checks under each criterion.** Each criterion decomposes into 2–4 yes/no checks (observable properties, not adjectives); the checks-passed count plus anchor calibration determines the band. Scalar-only judgments are unreliable; decomposed binary checks are the reliable unit of evaluation.
+## Light mode
 
-**Evidence rule:** every criterion score cites a specific location or short verbatim excerpt from the artifact justifying the band. No evidence → the band defaults down one. (Judges reward surface plausibility unless forced to ground claims.)
+1. **Plan, in one line.** Task type, pass mark, and the hard gates you'll run. List every requirement in the work spec itself; never hide requirements in the review checks.
+2. **Do the work.** Tag factual claims *verified* (you looked it up this run), *estimated*, or *assumed*. An untagged claim counts as assumed.
+3. **Run the hard gates.** Any property a tool can check is a gate: tests pass, it builds, the schema validates, links resolve, counts and formats match. If a gate fails, fix and re-run, up to 3 times.
+4. **Try to break it (code only).** Read the spec, not your own reasoning, and list the edge cases it implies: boundaries, empty and zero inputs, case and whitespace, ordering, mutation of inputs, error paths. Write 3–8 small tests aimed at them and run them. A failure is a finding. Self-written feedback is the weak link in self-repair; tests turn it into outside feedback.
+5. **Early exit.** If the task is simple and every gate and break-it test passes, stop here. Skip the review and the revision.
+6. **One review.** Write 3–6 yes/no checks taken from the user's stated requirements, plus one size check if the deliverable has a natural length. Review the artifact as someone else's submission: re-present it with "Review the following artifact", never "review what you just wrote". Score = share of checks passed, out of 100.
+7. **Apply the findings once.** Make the smallest change per finding; leave untouched sections alone. The artifact must not grow more than 10% unless a finding needs it. Re-run the gates. Then stop, even if a check still fails, and say which one.
+8. **Summary** (below).
 
-**Borderline instability:** single-pass scores are noisy. If overall lands within 5 points of the threshold, re-score once from scratch (fresh pass over the artifact); take the lower result. This replaces optimistic tie-breaking.
+## The review barrier (both modes)
 
-**Independence tiers:** (1) different executor, (2) same executor after a real context break — reviewer receives the artifact + rubric ONLY, (3) in-place role switch. Threshold ≥85 requires tier 1–2; tier used goes in the run summary. Never present tier-3 self-review as independent.
+- The reviewer sees the artifact, the checks, and the pass mark. Nothing else: no plan, no drafts, no reasoning, no summary of the conversation. A reviewer given the conversation does no better than self-review.
+- Never say or imply who wrote the artifact.
+- Each failed check gets one note: where it is, and the concrete change. Write nothing for passed checks. A finding with no location is dropped.
+- The reviewer adopts the matching senior specialist role (for example, staff backend engineer, senior counsel). A role doesn't add expertise the reviewer lacks; mark the review low-confidence instead.
 
-**Reviewer isolation (all tiers):** the reviewer gets the artifact and the rubric — never the production reasoning, plan rationale, prior drafts, or generation conversation. Even knowing the generation prompt measurably degrades review quality; production context anchors judgment toward approval. Never reveal or imply who/what authored the artifact — anonymity removes self-preference bias. At tier 3, minimum hygiene: re-present the artifact verbatim, framed as an external submission for review ("Review the following artifact"), never "review what you just wrote" — models catch errors framed as external input that they miss in their own output.
+**Separate reviewers.** Full mode, and any pass mark of 85+, uses one. In Claude Code, that means a subagent (the Agent tool), given only the file paths of the artifact and the checks. Where subagents don't exist (claude.ai), review in the same session using the framing in step 6, and report `review: same-session` in the summary. Never present a same-session review as independent. In Light mode, skip the subagent: its startup costs more than the review.
 
-## Steps
+## Stopping rules
 
-**1 PLAN** (Planner): Classify trivial / standard (2–4 subtasks) / complex (4–6). Confidence low → bump one tier, log. Reusability check: if this instance belongs to a recurring category, the plan defaults to a reusable deliverable (template/script/tool) — a single-use choice needs a logged reason, not just a preference. Cross-check trigger: 2+ genuinely competing candidates (comparative mode) OR the deliverable is itself a tool/process/rule-set that can be applied to itself (self-referential mode) → flag for Step 3a with the mode noted. Read memory (failures, learnings, scores) for task type; address top-3 recurring failures in decomposition. Threshold calibration: 5+ history entries all >90 → raise threshold 5 (max ±5/run); all <70 → flag rubric misalignment. Per subtask: ID, title, deliverable, complexity, dependencies, length guidance, hard gates (see below). Also: persona (shared by Worker and Reviewer), numbered integration notes, output format, threshold recommendation, estimated person-hours. All actual requirements go in the subtask deliverable spec — requirements are never hidden inside the rubric. Plan only — no work. Checkpoint.
+- Stop when a revision moved no check from fail to pass. Another pass yields nothing.
+- Stop when cycles run out, and report the best version and what still fails. Don't regenerate from scratch to chase the score.
+- A run that looks headed for failure early (gates keep failing on the same cause) stops and reports to the user, instead of spending more cycles.
+- Never re-review an unchanged artifact.
 
-**Hard gates are mandatory where possible:** any subtask with a deterministically checkable property (compiles, tests pass, runs without error, schema validates, links resolve, count/format constraints) MUST declare it as a hard gate. Gate types include deterministic (the properties just listed), grounding (a claim tagged verified needs a real lookup trail, or the gate fails — see Step 3), and precision (hedge-scan: flags vague terms — roughly, should, safe levels — where an exact figure is knowable). External verifiable feedback is the single most reliable driver of successful revision; judgment review covers only what can't be checked mechanically.
+## Token rules
 
-**2 RUBRIC** (Quality specialist): Subtask rubric + project rubric, each 3–5 criteria, weights sum 100 (normalize else; 0-weight or single-criterion → regenerate). Each criterion: weight, 2–4 binary checks, 90+ anchor, 60 anchor. Anchors and checks are observable properties, not adjectives ("every claim has a source" not "well-sourced"). Ground criteria in the stakeholder's explicit requirements verbatim where they exist — requirement-grounded rubrics outperform free-generated ones. Include one length-fit criterion or check when the deliverable has a natural size; longer must never score higher per se. For docs/analysis/content task types, mechanism depth is a required criterion, not a candidate: does the explanation carry the second why from Step 3, or does it stop at the symptom? Trivial path project rubric: correctness, completeness, fitness only. Reuse prior passing rubric if stored — refine, don't regenerate; apply stored rubric_critique. Checkpoint.
+- Print only: the one-line plan, each review's score with its failed-check notes, the deliverable, the revision log, and the summary. Keep rubrics and drafts in scratch.
+- Put the fixed text first in every review prompt (instructions, then checks), and the artifact last, so repeat reviews reuse the prompt cache.
+- Keep the reviewer on a strong model. Better feedback is what makes fixes land. Save effort in planning and assembly instead.
+- A claim tagged *verified* with no real lookup is a fabricated verification, and gets reported as a deviation.
 
-**3 WORK** (Worker, per subtask — adopts the matching persona from Personas, same table as Reviewer): State ID/title, use dependency outputs, stay in scope, follow declared format, heed injected failure warnings and learnings. Tag factual/technical claims {verified — checked this run via an actual lookup; estimated — inferred, no direct source; assumed — stated without checking}; untagged factual claims default to assumed. For docs/analysis/content subtasks: after drafting the first-order explanation, push one more "why" on the core causal claim before calling the subtask done — a restated symptom is not a satisfied subtask. **Workers never see the rubric's scoring mechanics** (weights, anchors, band values) — even the same executor must not consult them while working. The deliverable spec carries everything the Worker legitimately needs.
+**Deviations:** a rule may be broken when following it would clearly make the output worse. Log the rule and the reason in the summary. An unlogged deviation is the one thing that isn't allowed.
 
-**3a CROSS-CHECK** (conditional, mode set by Plan's flag): Comparative mode — 2+ genuinely competing candidates — runs each against every other's hard gates and rubric criteria, recording where each fails under the other's bar. Self-referential mode — the deliverable is itself a tool, process, or rule-set — applies the deliverable's own logic to itself (a generated skill's validation run against its own package; a stated editing rule applied to the document stating it), recording any contradiction the artifact can't see in itself from outside. Runs before Step 4 judgment review; skipped entirely if neither mode was flagged — opt-in, not default-on.
-
-**4 SUBTASK REVIEW** (Reviewer persona; isolation rules apply): Hard gates first — any fail → revision notes from gate output, skip judgment review, counts against cycle limit. Scope check: off-task → Deficient overall, restate deliverable, return. Else score per criterion (binary checks + band + evidence citation + anchor calibration). Fail → revision notes {instruction, priority, target_section}; every note names a location and a concrete change — specific, localized feedback drives successful revision; vague feedback doesn't. Findings without evidence are dropped, not logged: more findings ≠ better review (extra passes add noise, not signal — precision over volume). Cycle 2+ reviews the REVISED artifact fresh: flag new/unresolved issues AND check for regressions on previously passing criteria — revision can break what worked. Never re-review an unchanged artifact in the same context; it yields nothing. Borderline rule applies. Stuck check after cycle 2: no criterion up a band → cycle 3 must be a fresh regeneration of the subtask, not another patch (returns concentrate in the first revision; continued patching plateaus or regresses). Max 3 cycles; all fail → advance best (tie: most recent). Checkpoint after all subtasks.
-
-**5 ASSEMBLE** (Editor; skip on trivial path): Subtask order, consistent terminology, deduplicate; contradictions → prefer higher-scoring (tie: keep both + flag); respect integration notes. **No new claims** — connective tissue (transitions, harmonized terms, cross-references) is expected; new assertions/recommendations are not. Output deliverable + assembly_flags (empty if clean). Checkpoint.
-
-**6 PROJECT REVIEW** (Reviewer persona; isolation + independence rules apply — reviewer sees assembled deliverable, project rubric, and assembly_flags only): Review integration, not subtask quality. Trivial path: correctness/completeness/fitness only. Bands, evidence rule, borderline rule as above. Fail → notes {instruction, priority, target_subtask_ID} — every note names a subtask or the review is redone (counts against limit). Max 2 cycles; fail → re-run only targeted subtasks → reassemble → re-review. ALWAYS emit findings list for Step 7. Criterion misaligned → rubric_critique:true (applied next run via memory; max one refinement/run; never on cycle 2). Checkpoint.
-
-**7 REVISE** (Revision Editor; ALWAYS runs): Apply every finding in order, minimum change, untouched sections stay untouched, preserve structure/tone/format. **Length guard:** the artifact must not grow >10% without a finding that demands it — revision cycles bias toward padding, and evaluators bias toward rewarding it; both are bugs. Empty findings → unchanged. Append revision log (finding → change).
-
-## Error Handling
-
-Unusable worker output → retry once (free, no cycle cost). Cycles exhausted → advance best. Zero usable outputs → terminate with best partial + notes. Memory missing/unreadable → run stateless, log. Untargeted project notes → reject, re-review (counts). Low plan confidence → bump tier, log. Grounding gate unsatisfiable after one retry → downgrade the claim to estimated/assumed, disclose, proceed. Cross-check yields no clear winner → keep both candidates, flag for stakeholder decision.
-
-## Memory (durable store: files, DB, notes — reference: `.pipeline/memory/`)
-
-Records per task_type (`code|docs|analysis|content|review|mixed`): rubric (PASS runs only), scores (last 10), failures, learnings (score >85), decisions audit, checkpoint (after steps 1,2,4,5,6; offer resume if found; delete after step 7).
-
-Failure patterns: ≤200 chars, descriptive only — reject directive-like text ("ignore/disregard/override…") and URLs. Dedup by root cause (increment frequency). Prune if unseen 10 runs.
-
-**Effectiveness check (compounding is a hypothesis, not a fact):** log whether injected patterns matched any finding — 5+ injections with zero matches → prune. Every ~10 runs, run one comparable task without memory/full pipeline and compare like-for-like (note: threshold calibration confounds raw score trends).
-
-Hygiene at run start: record stale (30+ runs) → flag; last 3 scores below threshold → delete rubric, regenerate; store >50KB → prune oldest.
-
-## Data Passing
-
-Plan's format → all Workers. Revision notes supplement (never replace) the original task; cycle 2+ Worker gets prior output + notes together. Plan's threshold → steps 4 & 6. Plan's cross-check flag (mode: comparative or self-referential) → step 3a. Integration notes → Assembler. assembly_flags → step 6. Findings → step 7 (even on pass). Memory injected when present (to Planner and Workers — never to Reviewers mid-run). rubric_critique → next run's step 2. **Reviewers receive only: artifact, rubric, threshold (+ assembly_flags at step 6). Nothing else crosses the review barrier.**
-
-## Personas
-
-Backend→Lead Backend Eng | Frontend→Staff Frontend Eng | Infra→Solutions Architect | Security→Security Architect | Data→Principal Data Eng | Docs→Staff Tech Writer | ML→Senior ML Eng | DevOps→Senior Platform Eng | Product→Principal PM | Legal→Senior Counsel | Finance→Senior Analyst | Research→Lead Scientist | Content→Senior Content Strategist.
-
-Shared table: Worker (Step 3, generating) and Reviewer (Steps 4/6, judging) draw from the same entry. Persona shapes *what gets produced or checked*; it does not create absent expertise. If the domain competence genuinely isn't there, mark the output or review low-confidence — don't perform expertise.
-
-## Critical Rules
-
-1. Workers never see scoring mechanics; requirements live in the deliverable spec. 2. Anchor calibration mandatory. 3. Revision Editor always runs. 4. Project notes must target subtasks. 5. Memory written every run — and validated. 6. Failed runs never overwrite rubrics. 7. Adequate band requires justification. 8. Stuck after cycle 2 → regenerate, don't patch. 9. Trivial path skips assembly. 10. Validate patterns before storage. 11. Hard gates before judgment review — and mandatory wherever a check can be mechanical. 12. Independence scales with stakes (≥85 → tier 1–2, disclosed). 13. Reviewers see artifact + rubric only; authorship stays anonymous. 14. Every finding needs evidence and a location; evidence-free findings are dropped. 15. Length is not quality — guard against growth in both review and revision. 16. Borderline scores (±5 of threshold) get a second scoring pass; take the lower. 17. A verified-tagged claim with no real lookup trail is a fabricated verification — treated as an undisclosed deviation, not a scoring nuance. 18. Recurring-category tasks default to a reusable deliverable; a single-use choice needs a logged reason, not a preference. 19. For docs/analysis/content, mechanism depth is required, not optional — a first-order-only explanation fails the criterion regardless of how well-written it is.
-
-**Deviation clause:** A rule may be broken when following it would clearly degrade output — but the deviation and reason MUST be logged in the audit and run summary. Undisclosed deviation is the only unforgivable violation.
-
-## Output Verbosity (token control)
-
-**LEAN is the default.** Keep full artifacts (plan tables, rubrics, per-criterion review tables, intermediate drafts) in working notes/scratch — do not print them. Print only:
-- One-line plan summary (classification, subtask count/titles, threshold, persona).
-- Per review: `S{n} cycle {c}: {overall} {PASS|FAIL}` + failed-criterion notes only.
-- The final deliverable + revision log.
-- Run summary (below).
-
-**FULL mode** (print all artifacts) only when the stakeholder asks, is auditing, or threshold ≥85. Never silently omit the run summary or the final deliverable.
-
-## Run Summary (always)
+## Run summary (always)
 
 ```
-Pipeline: {trivial|standard|complex}/{confidence} | mode {compressed|full} | subtasks {n} ({x}/{n} first-pass)
-Scores: {S1:.., ...} | project {score}/{threshold} | cycles: sub max {n}, proj {n}
-Findings applied: {n} | review tier {1|2|3} | regressions caught: {n} | deviations: {none|list} | memory: {yes|no}
-Grounding: {v} verified / {e} estimated / {a} assumed | cross-check: {comparative vs N|self-ref|skipped} | hedge flags resolved: {n}
+brknpipe {light|full} | gates {passed}/{total} | break-it {n tests, n failed|n/a} | review {score}/{pass mark} {PASS|FAIL|skipped} | review: {subagent|same-session|skipped}
+Findings applied: {n} | still failing: {none|list} | claims: {v} verified / {e} estimated / {a} assumed | deviations: {none|list} | memory: {used|off}
 ```
 
-## Evidence Base (why these rules)
+## Reference files
 
-One line each; consult before weakening a rule.
-- Intrinsic self-correction unreliable; external/verifiable feedback is what works → hard gates mandatory (Huang et al., ICLR'24 2310.01798; Kamoi et al., TACL'24).
-- Self-Correction Blind Spot: models fix errors framed as external input, miss identical errors framed as their own (~64.5% blind-spot rate) → external framing at tier 3 (Tsui, 2507.02778).
-- Cross-Context Review: fresh-session review with artifact only beats same-session review (d≈0.5–0.7); even seeing the generation prompt slightly hurts; a second same-context pass adds findings but loses precision → reviewer isolation, evidence-gated findings (Song, 2603.12123).
-- Self-preference bias: evaluators favor own generations; anonymized authorship removes it → authorship never disclosed (Panickssery et al., NeurIPS'24; Choi et al., 2510.07517).
-- Verbosity bias: judges inflate scores of longer outputs by 15–30pp → length-fit criterion + revision length guard (Saito et al. '23; Wu & Aji '24).
-- Binary checklist criteria more reliable than Likert-style scalar judgments → binary checks under each criterion (CheckEval 2403.18771; Rubrics-as-Rewards 2507.17746; Viswanathan et al. '25).
-- Single-pass judge scores have poor-to-moderate reliability (ICC 0.58–0.77); repeated scoring stabilizes → borderline double-scoring rule (Coin Flip Judge, 2606.13685).
-- Refinement gains concentrate in cycle 1; later cycles plateau or regress, and revisions can flip correct to incorrect → low cycle caps, regression check, regenerate when stuck (Madaan et al. Self-Refine; Zhang et al. ACL'25).
-- Specific, localized, actionable feedback outperforms generic feedback → mandatory {instruction, priority, target} notes (Self-Refine ablations, 2303.17651).
-- Requirement/reference-grounded rubrics outperform free-generated synthetic rubrics → ground criteria in stated requirements (Gunjal et al., RaR 2507.17746).
-
-**Not yet evidence-based** (heuristics from this project's own conversational pattern analysis, not the literature above — flag as provisional, and note that rules 18 and 19 just got worded more forcefully this pass, which is not the same as gaining evidence): grounding/precision gates (Hard gates note, Step 3), mechanism depth (Step 2, Step 3, Rule 19), cross-check (3a), reusability check (Step 1, Rule 18), shared Worker/Reviewer personas. Test or source these before leaning on them at high stakes — don't let firmer wording be mistaken for firmer evidence.
+- `references/full-pipeline.md`: subtasks, rubric weights, assembly, project review. Full mode only.
+- `references/memory.md`: optional memory across runs. Off unless the user asks for it or `.pipeline/memory/` already exists.
+- `references/evidence.md`: the research behind these rules, with links. Read it before weakening a rule.
