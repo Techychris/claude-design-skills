@@ -36,7 +36,7 @@ Read this only in Full mode. Everything in SKILL.md still applies: the review ba
 
 - Run hard gates and break-it tests first. If any fail, write revision notes from their output and skip the judgment review. This still counts as a cycle.
 - If the work is off-task, the score is 0: restate the deliverable and send it back.
-- Otherwise, score it and write notes for the failed checks only.
+- Otherwise, score it and write notes for the failed checks only. For code at a pass mark of 85+, use the independent-tests review from SKILL.md step 6 instead of rubric scoring.
 - In cycle 2, review the revised artifact fresh. Check for regressions on checks that passed before.
 - Run at most 2 cycles. If both fail, advance the best version and record what still fails.
 
@@ -50,7 +50,7 @@ Read this only in Full mode. Everything in SKILL.md still applies: the review ba
 
 ## 6. Project review
 
-- The reviewer sees the assembled deliverable, the project rubric, the pass mark, and `assembly_flags` only.
+- The reviewer sees the assembled deliverable, the spec, the project rubric, the pass mark, and `assembly_flags` only.
 - Review how the parts fit together, not the quality of each subtask.
 - Every note must name a subtask ID. A note without one is rejected, and the review is redone (this counts as a cycle).
 - Run at most 2 cycles. On a fail, re-run only the targeted subtasks, then reassemble and re-review.

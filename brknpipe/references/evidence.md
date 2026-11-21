@@ -53,7 +53,7 @@ Each line gives the rule and the source behind it. Read this before weakening a 
 
 ## Not evidence-based yet
 
-These are heuristics from this project, not from the literature: the grounding and precision gates, the mechanism check for docs, the cross-check, and the reviewer roles. Test them before relying on them at high stakes.
+These are heuristics from this project, not from the literature: the grounding and precision gates, the mechanism check for docs, the cross-check, and the reviewer roles. Also the independent-tests review for high-stakes code: in this project's 2026-11-21 benchmark, rubric reviewers found nothing in 4 runs, while a reviewer that built its own reference version from the spec and compared 200,000 generated invoices was the strongest check seen. That's one task, so treat it as a lead, not a result. Test them before relying on them at high stakes.
 
 ## Removed in v9
 
