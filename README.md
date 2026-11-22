@@ -7,7 +7,7 @@ My Claude skills: interface design, UX, writing, documents, diagrams, video and 
 | --- | --- |
 | [`accessibility-audit`](accessibility-audit/SKILL.md) | Audit an existing interface against WCAG 2.2, producing findings with severity ratings and remediation steps. Use when you have a design or build to assess now. |
 | [`agent-architect-mentor`](agent-architect-mentor/SKILL.md) | Use whenever someone wants to design, build, debug, review, or learn about AI agents or agentic systems, or requests a rigorous multi-role self-review… |
-| [`brknpipe`](brknpipe/SKILL.md) | Self-review pipeline: outside checks first, break-it tests for code, one isolated review against yes/no checks. Light mode by default, Full mode for multi-part or high-stakes work. |
+| [`brknpipe`](brknpipe/SKILL.md) | v9.1.1. Runs hard gates first and reports verification for the delivered version. Light mode is the default. Full mode handles multiple subtasks or integration risk. |
 | [`building-explainer-sites`](building-explainer-sites/SKILL.md) | Designs, builds, and audits explainer web pages such as explorable explanations, interactive essays, and scrollytelling articles, applying evidence-based… |
 | [`design`](design/SKILL.md) | Build, polish (unslop) or review any UI: landing pages, sites, dashboards, app screens. Also faux product UI: hero demos, feature-card stills, bento grids and… |
 | [`design-demo`](design-demo/SKILL.md) | Use instead of the built-in design skill's Demo mode for faux product UI: hero or feature-card illustrations of an app, bento grids, mocked screens, animated… |

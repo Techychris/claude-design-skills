@@ -1,16 +1,16 @@
 # Full mode
 
-Read this only in Full mode. Everything in SKILL.md still applies: the review barrier, the stopping rules, the token rules, and the run summary. Full mode adds subtasks, weighted rubrics, assembly, and a project-level review.
+Read this only in Full mode. The review barrier, stopping rules, token rules, and run summary in SKILL.md apply. The Full-mode cycle budgets below govern retries. Full mode adds subtasks, weighted rubrics, assembly, and a project-level review.
 
-**Flow:** PLAN → RUBRIC → WORK → BREAK-IT (code) → SUBTASK REVIEW (≤2 cycles) → ASSEMBLE → PROJECT REVIEW (≤2 cycles) → APPLY FINDINGS → SUMMARY
+**Flow:** PLAN → RUBRIC → WORK → BREAK-IT (code) → SUBTASK REVIEW (≤2 cycles) → ASSEMBLE → PROJECT REVIEW (≤2 cycles, with in-budget revisions) → SELECT RESULT → SUMMARY
 
 ## 1. Plan
 
-- Classify the task as standard (2–4 subtasks) or complex (4–6). If you're unsure, take the larger size and say so.
+- Classify one to three subtasks as standard or four or more as complex. For large work, group related subtasks to keep ownership clear.
 - For each subtask, record: ID, title, deliverable spec, dependencies, length guidance, and hard gates.
 - Every requirement goes in the deliverable spec. The rubric only checks requirements; it never adds hidden ones.
 - Write numbered integration notes for the assembler, the output format, the pass mark, and the reviewer role.
-- **Cross-check flag (optional heuristic).** Set it when there are 2+ competing candidates (each is checked against the others' gates and checks), or when the deliverable is itself a rule-set or tool (apply it to itself and record any contradictions). It's off by default.
+- **Cross-check flag (optional heuristic).** Use the optional comparative check when there are two or more competing candidates. Check each against the others' gates and checks. For a rule-set edit, follow the shared nonrecursive rule in SKILL.md.
 
 **Hard gates beyond tests:**
 - *Grounding:* a claim tagged verified needs a real lookup trail, or the gate fails. If a second try can't satisfy it, downgrade the claim to estimated or assumed and disclose that.
@@ -21,9 +21,9 @@ Read this only in Full mode. Everything in SKILL.md still applies: the review ba
 - Write a subtask rubric and a project rubric, each with 3–5 criteria whose weights sum to 100.
 - Give each criterion 2–4 yes/no checks that name observable properties: "every claim has a source", not "well-sourced".
 - Take checks from the user's stated requirements, word for word where possible.
-- Add one size check when the deliverable has a natural length. Longer is never better in itself.
+- Assign each scored size or mechanism check to a named criterion before work. Mark any unweighted observation diagnostic.
 - For docs and analysis, add a mechanism check: does the core causal claim give the reason behind the symptom, or stop at the symptom? (This is a heuristic, not tested.)
-- **Score** = Σ (criterion weight × share of its checks passed). If the score lands within 5 points of the pass mark and the pass mark is 85+, score once more from scratch and keep the lower result. Below 85, don't re-score.
+- **Score** = Σ (criterion weight × share of its checks passed). For rubric scores within 5 points of a pass mark of 85+, score once more independently within the same cycle and keep the lower result. This planned calibration is the only repeat scoring of unchanged work. A rubric passes when its unrounded score meets the pass mark and all explicitly critical checks pass. Independent tests use their own verdict.
 - If memory holds a rubric that passed for this task type, reuse and refine it.
 
 ## 3. Work
@@ -34,31 +34,33 @@ Read this only in Full mode. Everything in SKILL.md still applies: the review ba
 
 ## 4. Subtask review
 
-- Run hard gates and break-it tests first. If any fail, write revision notes from their output and skip the judgment review. This still counts as a cycle.
+- Run hard gates and break-it tests first, once per cycle. A failed required gate or confirmed break-it failure blocks judgment. Route the output to revision if a cycle remains. A selected version needs passing evidence for every required check, including previously failed break-it tests.
 - If the work is off-task, the score is 0: restate the deliverable and send it back.
-- Otherwise, score it and write notes for the failed checks only. For code at a pass mark of 85+, use the independent-tests review from SKILL.md step 6 instead of rubric scoring.
-- In cycle 2, review the revised artifact fresh. Check for regressions on checks that passed before.
-- Run at most 2 cycles. If both fail, advance the best version and record what still fails.
+- Once gates pass, apply the rubric and record failed checks. For code at 85+, use the independent-tests verdict from SKILL.md step 6. Any fallback rubric is diagnostic only when independent verification is required.
+- A pass ends this subtask review. On a first failure, give the worker localized findings and the prior artifact. Review the revision in fresh context against the same check IDs and prior runnable tests.
+- Run at most two cycles per subtask across the whole run, including targeted project rework. If both fail, advance a labeled partial with remaining failures.
 
 ## 5. Assemble
 
 - Put the subtasks in order and harmonize terms.
-- Where subtasks contradict each other, keep the higher-scoring one, or keep both and flag it.
+- Resolve clashes against the shared spec and interface checks. Flag unresolved clashes. Keep the best gate-passing version by required checks, then by score, then the earlier version. Label any non-passing fallback partial.
 - Follow the integration notes.
 - Add no new claims. Transitions and cross-references are fine; new assertions are not.
-- Output the deliverable plus `assembly_flags`.
+- Output the deliverable, its ownership map, and `assembly_flags` limited to observable locations and conflicts.
 
 ## 6. Project review
 
-- The reviewer sees the assembled deliverable, the spec, the project rubric, the pass mark, and `assembly_flags` only.
+- Run project hard gates before judgment on the assembled version. Record a pass for every required gate on the exact selected version before returning it as complete. A failed or unavailable required gate blocks completion. Failure consumes a project cycle. Skip judgment on a failed or unavailable gate.
+- For judgment review, provide only the assembled deliverable, spec, rubric, pass mark, ownership map, and sanitized `assembly_flags`.
+- At 85+, also require independent tests for any public code integration surface. Provide its public interface, spec, and execution target. Use the nonempty, completed suite and all-tests-pass criteria from SKILL.md step 6.
 - Review how the parts fit together, not the quality of each subtask.
-- Every note must name a subtask ID. A note without one is rejected, and the review is redone (this counts as a cycle).
-- Run at most 2 cycles. On a fail, re-run only the targeted subtasks, then reassemble and re-review.
+- Route each localized note to one or more named subtasks or the integration owner. Log an invalid note as unresolved. Retry only with changed work and budget remaining.
+- Run at most two project cycles. Rerun targeted subtasks and affected dependents within budget, then reassemble and retest. Select the best candidate under the same rules as for assembly.
 - If a criterion was clearly the wrong measure, record `rubric_critique` for next time (via memory, if it's on).
 
 ## 7. Apply findings
 
-Run this step only if findings exist. Apply them in order, with the smallest change each. Keep the 10% growth limit. Append a revision log mapping each finding to its change.
+Apply findings before the next available cycle. After the budget is exhausted, select a previously checked version and report unresolved findings. Mark the selected version complete only if its required gates and components pass, its project rubric passes, and its independent integration tests pass when required. Return a partial result for any failed requirement or unavailable required gate. If those checks have no known failure and required review is missing or inconclusive, report verification pending. Keep each judgment tied to the version reviewed.
 
 ## Errors
 
@@ -69,5 +71,5 @@ Run this step only if findings exist. Apply them in order, with the smallest cha
 ## Extra summary line (Full mode)
 
 ```
-Subtasks {n} ({x}/{n} first-pass) | scores {S1:.., ...} | project {score}/{pass mark} | cycles: sub max {n}, proj {n} | regressions caught: {n} | cross-check: {comparative|self-ref|skipped}
+Subtasks {n} ({x}/{n} first-pass) | reviews {subtask, version, method, result} | project {version, rubric score, independent test result if required} | cycles: sub max {n}, proj {n} | regressions caught: {n} | cross-check: {comparative|self-ref|skipped}
 ```
